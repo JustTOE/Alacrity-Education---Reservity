@@ -20,7 +20,10 @@ NGOs, local businesses, and community associations can use this platform to list
 ## Tech Stack
 * **Frontend:** SvelteKit ( + Svelte), TypeScrip
 * **Backend:** SpringBoot
-* **Database:** PostgreSQL, Supabase 
+* **Database:** PostgreSQL, Supabase
+
+## Figma Mock-ups
+[See here:](https://www.figma.com/make/ROPDahrK5IGy7VjMjpXkzg/Public-Space-Rental-Website?p=f&fullscreen=1)
 
 ---
 
