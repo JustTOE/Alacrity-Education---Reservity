@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpaceRental — Showcase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #ffffff;
+      color: #030213;
+      line-height: 1.5;
+    }
+
+    /* Header */
+    header {
+      background: white;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(8px);
+    }
+
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      background: #030213;
+      color: white;
+      padding: 0.5rem;
+      border-radius: 0.625rem;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .logo h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .logo p {
+      font-size: 0.75rem;
+      color: #717182;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-size: 0.875rem;
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: #030213;
+    }
+
+    .sign-in {
+      background: #030213;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.625rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+
+    .sign-in:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+      nav { display: none; }
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, rgba(3, 2, 19, 0.05) 0%, white 50%, white 100%);
+      padding: 4rem 1.5rem;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 896px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 2.25rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    @media (min-width: 768px) {
+      .hero h1 { font-size: 3rem; }
+    }
+
+    @media (min-width: 1024px) {
+      .hero h1 { font-size: 3.75rem; }
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #717182;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .hero p { font-size: 1.125rem; }
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media (min-width: 640px) {
+      .hero-badges { flex-direction: row; }
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.625rem;
+      border: 1px solid #e0e0e0;
+      font-size: 0.875rem;
+    }
+
+    .badge-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    .results {
+      margin-bottom: 2rem;
+    }
+
+    .results h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .results p {
+      color: #717182;
+      font-size: 0.875rem;
+    }
+
+    /* Filter Bar */
+    .filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .filters { grid-template-columns: 1fr 1fr 1fr; }
+    }
+
+    .filter-group label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .filter-group input,
+    .filter-group select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 0.625rem;
+      font-size: 0.875rem;
+      font-family: inherit;
+    }
+
+    /* Grid */
+    .spaces-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+
+    @media (min-width: 768px) {
+      .spaces-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 1024px) {
+      .spaces-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* Card */
+    .card {
+      border: 1px solid #e0e0e0;
+      border-radius: 0.625rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #f3f3f5;
+    }
+
+    .card-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-type {
+      font-size: 0.75rem;
+      color: #717182;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .card-location {
+      font-size: 0.875rem;
+      color: #717182;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      flex: 1;
+      align-items: flex-end;
+    }
+
+    .card-footer {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .availability {
+      background: #f0f9ff;
+      color: #0369a1;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .btn {
+      background: #030213;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0.625rem;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: opacity 0.2s;
+      flex: 1;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Footer */
+    footer {
+      background: white;
+      border-top: 1px solid #e0e0e0;
+      padding: 3rem 1.5rem;
+      margin-top: 5rem;
+    }
+
+    .footer-content {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .footer-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .footer-col h4 {
+      margin-bottom: 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-col a {
+      color: #717182;
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: #030213;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #e0e0e0;
+      padding-top: 2rem;
+      text-align: center;
+      color: #717182;
+      font-size: 0.875rem;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 4rem 1.5rem;
+    }
+
+    .no-results h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .no-results p {
+      color: #717182;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 50;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 0.625rem;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal h2 {
+      margin-bottom: 1rem;
+    }
+
+    .modal-close {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #717182;
+    }
+
+    .modal-body {
+      clear: both;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-body p {
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .modal-footer button {
+      flex: 1;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 0.625rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .modal-footer .btn-primary {
+      background: #030213;
+      color: white;
+    }
+
+    .modal-footer .btn-secondary {
+      background: #f3f3f5;
+      color: #030213;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="logo">
+        <div class="logo-icon">🏢</div>
+        <div>
+          <h1>SpaceRental</h1>
+          <p>Find Your Perfect Space</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#spaces">Browse Spaces</a>
+        <a href="#how">How It Works</a>
+        <a href="#list">List Your Space</a>
+        <button class="sign-in">Sign In</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Book the Perfect Space for Your Next Event</h1>
+      <p>From intimate meetings to grand celebrations, find and book professional venues by the hour</p>
+      <div class="hero-badges">
+        <div class="badge">
+          <span class="badge-dot" style="background: #22c55e"></span>
+          200+ Spaces Available
+        </div>
+        <div class="badge">
+          <span class="badge-dot" style="background: #3b82f6"></span>
+          Instant Booking
+        </div>
+        <div class="badge">
+          <span class="badge-dot" style="background: #a855f7"></span>
+          Verified Venues
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main id="spaces">
+    <div class="results">
+      <h2>Available Spaces</h2>
+      <p id="result-count">12 spaces found</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-group">
+        <label>Search</label>
+        <input type="text" id="search" placeholder="Search spaces or location...">
+      </div>
+      <div class="filter-group">
+        <label>Type</label>
+        <select id="type">
+          <option value="all">All Types</option>
+          <option value="Conference Room">Conference Room</option>
+          <option value="Meeting Room">Meeting Room</option>
+          <option value="Coworking Space">Coworking Space</option>
+          <option value="Event Hall">Event Hall</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Capacity</label>
+        <select id="capacity">
+          <option value="all">Any Capacity</option>
+          <option value="1-10">1-10 people</option>
+          <option value="11-25">11-25 people</option>
+          <option value="26-50">26-50 people</option>
+          <option value="51+">50+ people</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Spaces Grid -->
+    <div class="spaces-grid" id="spaces-grid">
+      <!-- Cards will be inserted here -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+            <span style="font-size: 1.25rem;">🏢</span>
+            <span style="font-weight: 600;">SpaceRental</span>
+          </div>
+          <p style="font-size: 0.875rem; color: #717182;">Your trusted platform for booking professional spaces by the hour.</p>
+        </div>
+        <div class="footer-col">
+          <h4>For Renters</h4>
+          <ul>
+            <li><a href="#">Browse Spaces</a></li>
+            <li><a href="#">How It Works</a></li>
+            <li><a href="#">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>For Owners</h4>
+          <ul>
+            <li><a href="#">List Your Space</a></li>
+            <li><a href="#">Owner Dashboard</a></li>
+            <li><a href="#">Resources</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 SpaceRental. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn-primary">Book Now</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SPACES = [
+      { id: 1, name: "Modern Conference Hub", type: "Conference Room", location: "Downtown, New York", capacity: 20, price: 85, availability: "Available today" },
+      { id: 2, name: "Executive Boardroom", type: "Conference Room", location: "Midtown, Manhattan", capacity: 15, price: 120, availability: "Available tomorrow" },
+      { id: 3, name: "Tech Innovation Space", type: "Conference Room", location: "Silicon Valley", capacity: 12, price: 95, availability: "Available today" },
+      { id: 4, name: "Panoramic Meeting Room", type: "Meeting Room", location: "Financial District", capacity: 25, price: 110, availability: "Available today" },
+      { id: 5, name: "Contemporary Board Suite", type: "Conference Room", location: "Business Bay", capacity: 18, price: 100, availability: "Available this week" },
+      { id: 6, name: "Collaborative Workspace", type: "Coworking Space", location: "Brooklyn Heights", capacity: 30, price: 75, availability: "Available today" },
+      { id: 7, name: "Premium Office Suite", type: "Coworking Space", location: "Central Business District", capacity: 8, price: 65, availability: "Available today" },
+      { id: 8, name: "Modern Cowork Hub", type: "Coworking Space", location: "Tech Park", capacity: 40, price: 90, availability: "Available this week" },
+      { id: 9, name: "Grand Banquet Hall", type: "Event Hall", location: "Convention Center", capacity: 200, price: 350, availability: "Available next week" },
+      { id: 10, name: "Elegant Event Venue", type: "Event Hall", location: "Uptown Plaza", capacity: 150, price: 280, availability: "Available today" },
+      { id: 11, name: "Premium Event Space", type: "Event Hall", location: "Grand Hotel", capacity: 120, price: 250, availability: "Available tomorrow" },
+      { id: 12, name: "Luxury Reception Hall", type: "Event Hall", location: "Waterfront District", capacity: 180, price: 320, availability: "Available this week" }
+    ];
+
+    function filterSpaces() {
+      const search = document.getElementById('search').value.toLowerCase();
+      const type = document.getElementById('type').value;
+      const capacity = document.getElementById('capacity').value;
+
+      const filtered = SPACES.filter(space => {
+        const matchesSearch = space.name.toLowerCase().includes(search) || space.location.toLowerCase().includes(search);
+        const matchesType = type === 'all' || space.type === type;
+        
+        let matchesCapacity = true;
+        if (capacity === '1-10') matchesCapacity = space.capacity <= 10;
+        else if (capacity === '11-25') matchesCapacity = space.capacity >= 11 && space.capacity <= 25;
+        else if (capacity === '26-50') matchesCapacity = space.capacity >= 26 && space.capacity <= 50;
+        else if (capacity === '51+') matchesCapacity = space.capacity >= 51;
+
+        return matchesSearch && matchesType && matchesCapacity;
+      });
+
+      renderSpaces(filtered);
+    }
+
+    function renderSpaces(spaces) {
+      const grid = document.getElementById('spaces-grid');
+      const count = document.getElementById('result-count');
+      
+      if (spaces.length === 0) {
+        grid.innerHTML = '<div class="no-results"><h3>No spaces found</h3><p>Try adjusting your search criteria</p></div>';
+        count.textContent = '0 spaces found';
+        return;
+      }
+
+      count.textContent = spaces.length + ' ' + (spaces.length === 1 ? 'space' : 'spaces') + ' found';
+      
+      grid.innerHTML = spaces.map(space => `
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1771147372627-7fffe86cf00b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="${space.name}" class="card-image">
+          <div class="card-body">
+            <div class="card-type">${space.type}</div>
+            <div class="card-name">${space.name}</div>
+            <div class="card-location">${space.location}</div>
+            <div class="card-meta">
+              <span>${space.capacity} people</span>
+              <strong>$${space.price}/hr</strong>
+            </div>
+            <div class="card-footer">
+              <span class="availability">${space.availability}</span>
+              <button class="btn" onclick="openModal(${space.id})">Book</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openModal(spaceId) {
+      const space = SPACES.find(s => s.id === spaceId);
+      if (!space) return;
+      
+      document.getElementById('modalTitle').textContent = space.name;
+      document.getElementById('modalBody').innerHTML = `
+        <p><strong>Location:</strong> ${space.location}</p>
+        <p><strong>Type:</strong> ${space.type}</p>
+        <p><strong>Capacity:</strong> ${space.capacity} people</p>
+        <p><strong>Price:</strong> $${space.price} per hour</p>
+        <p><strong>Availability:</strong> ${space.availability}</p>
+      `;
+      document.getElementById('bookingModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('bookingModal').classList.remove('active');
+    }
+
+    // Event listeners
+    document.getElementById('search').addEventListener('input', filterSpaces);
+    document.getElementById('type').addEventListener('change', filterSpaces);
+    document.getElementById('capacity').addEventListener('change', filterSpaces);
+
+    // Initial render
+    renderSpaces(SPACES);
+  </script>
+</body>
+</html>
