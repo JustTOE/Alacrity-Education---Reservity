@@ -94,6 +94,9 @@ export default function ListingsRoute() {
   const slugs = useMemo(() => allSpaces.map((s) => s.id), [allSpaces]);
   const { data: availability } = useAvailabilityBatch(slugs, selectedDate);
 
+  // Fetch full details for the selected space to ensure synchronized info (description, amenities, etc.)
+  const { data: fullSpaceDetail } = useSpace(selectedId || undefined);
+
   const spacesForDate = useMemo<ResolvedSpace[]>(
     () =>
       allSpaces.map((s) => {
@@ -105,16 +108,22 @@ export default function ListingsRoute() {
           title: e.title,
           host: e.host,
         }));
+        
+        // Merge with full detail if this is the selected space
+        const details = (fullSpaceDetail && fullSpaceDetail.id === s.id) ? fullSpaceDetail : {};
+
         return {
           ...s,
+          ...details,
           booked,
           events,
           // M9: revisit fullyBooked when per-local-day open-hours coverage is plumbed.
           fullyBooked: false,
         };
       }),
-    [allSpaces, availability],
+    [allSpaces, availability, fullSpaceDetail],
   );
+
 
   const [filters, setFilters] = useState<Filters>({
     minCapacity: 1,
@@ -1220,6 +1229,31 @@ function DetailPanel({ space, currentHour, isToday, selectedDate, onBook, onNoti
         <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--ink-soft)", margin: "20px 0 0" }}>
           {space.description || space.blurb}
         </p>
+
+        {space.amenities && space.amenities.length > 0 && (
+          <div style={{ marginTop: 24 }}>
+            <h3 className="h-mono" style={{ fontSize: 11, letterSpacing: "0.18em", color: "var(--ink-soft)" }}>AMENITIES</h3>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 8 }}>
+              {space.amenities.map(a => (
+                <span key={a} className="pill pill-indigo" style={{ fontSize: 12 }}>{a}</span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {space.rules && space.rules.length > 0 && (
+          <div style={{ marginTop: 24 }}>
+            <h3 className="h-mono" style={{ fontSize: 11, letterSpacing: "0.18em", color: "var(--ink-soft)" }}>HOUSE RULES</h3>
+            <ul style={{ margin: "8px 0 0", padding: 0, listStyle: "none", fontSize: 14, color: "var(--ink-soft)" }}>
+              {space.rules.map(r => (
+                <li key={r} style={{ display: "flex", gap: 8, marginBottom: 4 }}>
+                  <span style={{ color: "var(--orange)" }}>•</span>
+                  {r}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <h3
           className="h-mono"

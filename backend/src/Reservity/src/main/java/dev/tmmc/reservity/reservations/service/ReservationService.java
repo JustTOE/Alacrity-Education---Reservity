@@ -43,7 +43,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -303,7 +305,16 @@ public class ReservationService {
     }
 
     @Transactional(readOnly = true)
+    public PageResponse<ReservationResponse> listAllReservations(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "startsAt"));
+        Page<Reservation> p = reservationRepository.findAllDetailed(pageable);
+        return PageResponse.of(p.map(r -> mapper.toResponse(r.getRequest(), r, false, null)));
+    }
+
+
+    @Transactional(readOnly = true)
     public PageResponse<ReservationResponse> listMineReservations(UUID userId, boolean upcomingOnly, int page, int size) {
+
         Pageable pageable = PageRequest.of(page, size);
         Page<Reservation> p = upcomingOnly
                 ? reservationRepository.findByUserIdAndStartsAtGreaterThanEqualOrderByStartsAtAsc(userId, Instant.now(), pageable)

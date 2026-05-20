@@ -119,6 +119,33 @@ export function responseToSpace(s: ApiSpaceResponse): Space {
   };
 }
 
+export interface CreateSpaceRequest {
+  name: string;
+  type: SpaceType;
+  building?: string;
+  buildingId?: string;
+  floor?: number;
+  room: string;
+  seats: number;
+  area: number;
+  price: number;
+  blurb: string;
+  description?: string;
+  amenities?: string[];
+  rules?: string[];
+  vibes?: VibeId[];
+  pinX?: number;
+  pinY?: number;
+  surprise?: boolean;
+  dropIn?: boolean;
+  instantBook?: boolean;
+}
+
+export interface UpdateSpaceRequest extends Partial<CreateSpaceRequest> {
+  id: string; // uuid
+}
+
+
 export const spacesApi = {
   list: (query: SpacesQuery = {}) => {
     const qs = buildQuery({
@@ -139,6 +166,17 @@ export const spacesApi = {
 
   get: (slugOrId: string) =>
     api.get<ApiSpaceResponse>(`/spaces/${encodeURIComponent(slugOrId)}`),
+
+  create: (body: CreateSpaceRequest) =>
+    api.post<ApiSpaceResponse>("/spaces", body),
+
+  update: (spaceId: string, body: UpdateSpaceRequest) =>
+    api.put<ApiSpaceResponse>(`/spaces/${encodeURIComponent(spaceId)}`, body),
+
+  delete: (spaceId: string) =>
+    api.request<void>(`/spaces/${encodeURIComponent(spaceId)}`, {
+      method: "DELETE",
+    }),
 
   availabilityRange: (slugOrId: string, from: string, to: string) =>
     api.get<ApiAvailabilityResponse>(

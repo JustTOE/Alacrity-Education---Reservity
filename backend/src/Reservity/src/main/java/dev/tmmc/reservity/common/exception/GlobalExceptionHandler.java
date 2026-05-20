@@ -5,12 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -166,14 +169,63 @@ public class GlobalExceptionHandler {
                 .build());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleGeneric(Exception ex, HttpServletRequest req) {
-        log.error("Unhandled exception for request {}", req.getRequestURI(), ex);
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiError> handleJsonError(HttpMessageNotReadableException ex, HttpServletRequest req) {
+        return ResponseEntity.badRequest().body(ApiError.builder()
+                .timestamp(Instant.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("Bad Request")
+                .message("Malformed JSON request: " + ex.getMostSpecificCause().getMessage())
+                .path(req.getRequestURI())
+                .build());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleIllegalArg(IllegalArgumentException ex, HttpServletRequest req) {
+        return ResponseEntity.badRequest().body(ApiError.builder()
+                .timestamp(Instant.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("Bad Request")
+                .message(ex.getMessage())
+                .path(req.getRequestURI())
+                .build());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ApiError> handleTypeMismatch(MethodArgumentTypeMismatchException ex, HttpServletRequest req) {
+        return ResponseEntity.badRequest().body(ApiError.builder()
+                .timestamp(Instant.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("Bad Request")
+                .message(String.format("Parameter '%s' should be of type %s", ex.getName(), ex.getRequiredType().getSimpleName()))
+                .path(req.getRequestURI())
+                .build());
+    }
+
+    @ExceptionHandler(TransactionSystemException.class)
+    public ResponseEntity<ApiError> handleTransactionSystemException(TransactionSystemException ex, HttpServletRequest req) {
+        Throwable cause = ex.getRootCause();
+        if (cause instanceof jakarta.validation.ConstraintViolationException cvEx) {
+            return handleConstraintViolation(cvEx, req);
+        }
+        log.error("Transaction system exception for request {}: {}", req.getRequestURI(), ex.getMessage(), ex);
         return ResponseEntity.internalServerError().body(ApiError.builder()
                 .timestamp(Instant.now())
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .error("Internal Server Error")
-                .message("An unexpected error occurred")
+                .message("Transaction failed: " + (cause != null ? cause.getMessage() : ex.getMessage()))
+                .path(req.getRequestURI())
+                .build());
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiError> handleGeneric(Exception ex, HttpServletRequest req) {
+        log.error("Unhandled exception for request {}: {} - {}", req.getRequestURI(), ex.getClass().getSimpleName(), ex.getMessage(), ex);
+        return ResponseEntity.internalServerError().body(ApiError.builder()
+                .timestamp(Instant.now())
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .error("Internal Server Error")
+                .message("An unexpected error occurred: [" + ex.getClass().getSimpleName() + "] " + ex.getMessage())
                 .path(req.getRequestURI())
                 .build());
     }

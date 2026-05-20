@@ -17,4 +17,7 @@ public interface SpaceWaitlistRepository extends JpaRepository<SpaceWaitlistEntr
             ORDER BY w.createdAt DESC
             """)
     List<SpaceWaitlistEntry> findAllForUser(UUID userId);
+
+    void deleteByUserIdAndSpaceId(UUID userId, UUID spaceId);
 }
+

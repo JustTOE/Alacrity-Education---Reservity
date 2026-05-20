@@ -13,26 +13,27 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/spaces")
 @RequiredArgsConstructor
 public class SpaceFavoriteController {
 
     private final SpaceFavoriteService favoriteService;
 
-    @PostMapping("/api/spaces/{slugOrId}/favorite")
+    @PostMapping("/{slugOrId}/favorite")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void favorite(@AuthenticationPrincipal SecurityUser principal,
                          @PathVariable String slugOrId) {
         favoriteService.favorite(requireUserId(principal), slugOrId);
     }
 
-    @DeleteMapping("/api/spaces/{slugOrId}/favorite")
+    @DeleteMapping("/{slugOrId}/favorite")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void unfavorite(@AuthenticationPrincipal SecurityUser principal,
                            @PathVariable String slugOrId) {
         favoriteService.unfavorite(requireUserId(principal), slugOrId);
     }
 
-    @GetMapping("/api/users/me/favorites")
+    @GetMapping("/favorites")
     public List<SpaceSummary> myFavorites(@AuthenticationPrincipal SecurityUser principal) {
         return favoriteService.listForUser(requireUserId(principal));
     }
@@ -42,3 +43,4 @@ public class SpaceFavoriteController {
         return principal.getUserId();
     }
 }
+

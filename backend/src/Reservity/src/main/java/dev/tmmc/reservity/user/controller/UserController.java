@@ -1,6 +1,7 @@
 package dev.tmmc.reservity.user.controller;
 
 import dev.tmmc.reservity.common.exception.EntityNotFoundException;
+import dev.tmmc.reservity.common.pagination.PageResponse;
 import dev.tmmc.reservity.common.security.SecurityUser;
 import dev.tmmc.reservity.user.dto.*;
 import dev.tmmc.reservity.user.service.UserService;
@@ -8,6 +9,9 @@ import dev.tmmc.reservity.user.service.UserSettingsService;
 import dev.tmmc.reservity.user.service.UserSocialService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +27,17 @@ public class UserController {
     private final UserSettingsService settingsService;
     private final UserSocialService socialService;
 
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public PageResponse<UserResponse> list(@PageableDefault(size = 20) Pageable pageable) {
+        return userService.list(pageable);
+    }
+
     @GetMapping("/me")
     public UserResponse getMe(@AuthenticationPrincipal SecurityUser principal) {
         return userService.getById(requirePrincipal(principal));
     }
+
 
     @PatchMapping("/me")
     public UserResponse updateMe(@AuthenticationPrincipal SecurityUser principal,

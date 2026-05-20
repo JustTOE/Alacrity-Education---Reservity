@@ -58,7 +58,7 @@ const DEFAULT_FORM = () => ({
   instantBook: true,
 });
 
-export default function CreateListingPage({ data, onNavigate, onToast }) {
+export default function CreateListingPage({ data, onNavigate, onToast, onSubmit, isSubmitting }) {
   const { VIBES, SPACES, DATE_WINDOW, now } = data;
   const [f, setF] = useStateCr(DEFAULT_FORM());
   const [activeSection, setActiveSection] = useStateCr('basics');
@@ -92,24 +92,36 @@ export default function CreateListingPage({ data, onNavigate, onToast }) {
 
   // ---- Completeness scoring -----------------------------------------------
   const checks = useMemoCr(() => ([
-    { id: 'basics',       label: 'Name & type',     ok: f.name.trim().length >= 3 && !!f.type },
+    { 
+      id: 'basics',       
+      label: 'The Basics',     
+      ok: f.name.trim().length >= 3 && 
+          f.tagline.trim().length >= 5 && 
+          f.description.trim().length >= 30 && 
+          !!f.type 
+    },
     { id: 'photos',       label: 'At least 1 photo', ok: f.photos.some(Boolean) },
     { id: 'location',     label: 'Where it lives',   ok: !!f.building && !!f.room },
     { id: 'capacity',     label: 'Seats & price',    ok: f.seats > 0 && (f.isFree || f.price >= 0) },
     { id: 'amenities',    label: '≥3 amenities',     ok: f.amenities.size >= 3 },
-    { id: 'description',  label: 'Description',      ok: f.description.trim().length >= 30 },
     { id: 'availability', label: 'Start date set',   ok: !!f.startDate },
   ]), [f]);
+
   const completed = checks.filter(c => c.ok).length;
   const pct = Math.round((completed / checks.length) * 100);
 
   // ---- Publish handler -----------------------------------------------------
-  const canPublish = checks.every(c => c.ok);
+  const canPublish = checks.every(c => c.ok) && !isSubmitting;
   const onPublish = () => {
     if (!canPublish) { onToast?.('Finish the checklist first'); return; }
-    onToast?.(`Listed “${f.name}” — verifying ownership…`);
-    onNavigate('listings');
+    if (onSubmit) {
+      onSubmit(f);
+    } else {
+      onToast?.(`Listed “${f.name}” — verifying ownership…`);
+      onNavigate('listings');
+    }
   };
+
 
   return (
     <div className="cl-page">
@@ -185,7 +197,7 @@ export default function CreateListingPage({ data, onNavigate, onToast }) {
                 placeholder="e.g. Coding Pod 7"
                 maxLength={48}
               />
-              <Counter v={f.name.length} max={48}/>
+              <Counter v={f.name.trim().length} max={48}/>
             </Field>
 
             <Field label="Tagline" hint="One sentence — what makes this space feel like itself.">
@@ -196,8 +208,9 @@ export default function CreateListingPage({ data, onNavigate, onToast }) {
                 placeholder="e.g. Soundproof, dual monitor, plant on the sill."
                 maxLength={90}
               />
-              <Counter v={f.tagline.length} max={90}/>
+              <Counter v={f.tagline.trim().length} max={90}/>
             </Field>
+
 
             <Field label="What kind of space?">
               <div className="cl-type-grid">
@@ -222,8 +235,9 @@ export default function CreateListingPage({ data, onNavigate, onToast }) {
                 placeholder="A 6 m² soundproof pod on the 2nd floor of Linden Hall. Dual 27&quot; monitors, mechanical keyboard, Aeron chair, dimmable warm lighting. Lock the door, put on headphones, vanish for three hours."
                 maxLength={520}
               />
-              <Counter v={f.description.length} max={520}/>
+              <Counter v={f.description.trim().length} max={520}/>
             </Field>
+
           </Section>
 
           {/* 02 PHOTOS ------------------------------------------------------ */}
@@ -538,8 +552,12 @@ export default function CreateListingPage({ data, onNavigate, onToast }) {
           <div className="cl-actions">
             <button className="btn btn-ghost" onClick={() => onNavigate('listings')}>Cancel</button>
             <button className="btn btn-ghost" onClick={() => onToast?.('Draft saved')}>Save draft</button>
-            <button className={`btn btn-orange ${!canPublish ? 'is-disabled' : ''}`} onClick={onPublish}>
-              {canPublish ? 'Publish listing →' : `${checks.length - completed} more to fill in`}
+            <button 
+              className={`btn btn-orange ${!canPublish || isSubmitting ? 'is-disabled' : ''}`} 
+              onClick={onPublish}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Publishing...' : canPublish ? 'Publish listing →' : `${checks.length - completed} more to fill in`}
             </button>
           </div>
         </main>

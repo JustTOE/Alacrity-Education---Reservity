@@ -15,12 +15,13 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/api/spaces")
 @RequiredArgsConstructor
 public class SpaceWaitlistController {
 
     private final SpaceWaitlistService waitlistService;
 
-    @PostMapping("/api/spaces/{slugOrId}/waitlist")
+    @PostMapping("/{slugOrId}/waitlist")
     public ResponseEntity<WaitlistResponse> add(@AuthenticationPrincipal SecurityUser principal,
                                                 @PathVariable String slugOrId,
                                                 @RequestBody(required = false) WaitlistRequest req) {
@@ -28,15 +29,14 @@ public class SpaceWaitlistController {
         return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 
-    @DeleteMapping("/api/spaces/{slugOrId}/waitlist/{wlId}")
+    @DeleteMapping("/{slugOrId}/waitlist")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remove(@AuthenticationPrincipal SecurityUser principal,
-                       @PathVariable String slugOrId,
-                       @PathVariable UUID wlId) {
-        waitlistService.remove(requireUserId(principal), wlId);
+                       @PathVariable String slugOrId) {
+        waitlistService.removeBySpace(requireUserId(principal), slugOrId);
     }
 
-    @GetMapping("/api/users/me/waitlist")
+    @GetMapping("/waitlist")
     public List<WaitlistResponse> myWaitlist(@AuthenticationPrincipal SecurityUser principal) {
         return waitlistService.listForUser(requireUserId(principal));
     }
@@ -46,3 +46,4 @@ public class SpaceWaitlistController {
         return principal.getUserId();
     }
 }
+

@@ -67,6 +67,13 @@ public class SpaceWaitlistService {
         waitlistRepository.delete(entry);
     }
 
+    @Transactional
+    public void removeBySpace(UUID userId, String spaceSlugOrId) {
+        Space space = resolveSpace(spaceSlugOrId);
+        waitlistRepository.deleteByUserIdAndSpaceId(userId, space.getId());
+    }
+
+
     @Transactional(readOnly = true)
     public List<WaitlistResponse> listForUser(UUID userId) {
         return waitlistRepository.findAllForUser(userId).stream()

@@ -8,7 +8,7 @@ export default function Nav() {
   const isAuthed = auth.status === "authenticated";
   const accountType = auth.user?.accountType;
   
-  const canHost = accountType === "OWNER" || accountType === "ADMIN";
+  const canHost = accountType === "OWNER";
   const isAdmin = accountType === "ADMIN";
 
   return (

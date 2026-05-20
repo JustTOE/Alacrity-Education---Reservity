@@ -1,0 +1,41 @@
+2026.05.21 01:56:20 INFO  Started: Metals version 1.6.7 in folders 'C:\Users\skinc\Desktop\Alacrity Education - Reservity' for client Visual Studio Code 1.121.0.
+2026.05.21 01:56:20 INFO  Memory monitor started
+2026.05.21 01:56:20 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.21 01:56:21 WARN  no build tool detected in workspace 'C:\Users\skinc\Desktop\Alacrity Education - Reservity'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2026.05.21 01:56:21 WARN  Build server is not auto-connectable.
+2026.05.21 01:56:21 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\auth\dto\LoginRequest.java
+2026.05.21 01:56:21 WARN  Running javac-semanticdb failed for file:///C:/Users/skinc/Desktop/Alacrity%20Education%20-%20Reservity/backend/src/Reservity/src/main/java/dev/tmmc/reservity/auth/dto/LoginRequest.java. Output:
+
+2026.05.21 02:01:51 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\auth\dto\LoginRequest.java
+2026.05.21 02:10:21 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\SpaceController.java
+2026.05.21 02:10:21 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\service\SpaceService.java
+2026.05.21 02:10:21 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\SpaceImageController.java
+2026.05.21 02:10:21 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\SpaceWaitlistController.java
+2026.05.21 02:10:21 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\AvailabilityController.java
+2026.05.21 02:10:21 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\SpaceFavoriteController.java
+2026.05.21 02:10:21 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\reservations\controller\ReservationRequestController.java
+2026.05.21 02:10:21 WARN  no build target for: C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\organization\controller\OrganizationController.java
+2026.05.21 02:10:21 WARN  Running javac-semanticdb failed for file:///C:/Users/skinc/Desktop/Alacrity%20Education%20-%20Reservity/backend/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/SpaceController.java. Output:
+
+2026.05.21 02:10:21 WARN  Running javac-semanticdb failed for file:///C:/Users/skinc/Desktop/Alacrity%20Education%20-%20Reservity/backend/src/Reservity/src/main/java/dev/tmmc/reservity/organization/controller/OrganizationController.java. Output:
+
+2026.05.21 02:10:21 WARN  Running javac-semanticdb failed for file:///C:/Users/skinc/Desktop/Alacrity%20Education%20-%20Reservity/backend/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/controller/ReservationRequestController.java. Output:
+
+2026.05.21 02:10:21 WARN  Running javac-semanticdb failed for file:///C:/Users/skinc/Desktop/Alacrity%20Education%20-%20Reservity/backend/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/SpaceFavoriteController.java. Output:
+
+2026.05.21 02:10:21 WARN  Running javac-semanticdb failed for file:///C:/Users/skinc/Desktop/Alacrity%20Education%20-%20Reservity/backend/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/AvailabilityController.java. Output:
+
+2026.05.21 02:10:21 WARN  Running javac-semanticdb failed for file:///C:/Users/skinc/Desktop/Alacrity%20Education%20-%20Reservity/backend/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/SpaceWaitlistController.java. Output:
+
+2026.05.21 02:10:21 WARN  Running javac-semanticdb failed for file:///C:/Users/skinc/Desktop/Alacrity%20Education%20-%20Reservity/backend/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/SpaceImageController.java. Output:
+
+2026.05.21 02:10:21 WARN  Running javac-semanticdb failed for file:///C:/Users/skinc/Desktop/Alacrity%20Education%20-%20Reservity/backend/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/SpaceService.java. Output:
+
+2026.05.21 02:13:21 INFO  no build target found for C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\SpaceController.java. Using fallback presentation compiler.
+2026.05.21 02:13:21 INFO  no build target found for C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\service\SpaceService.java. Using fallback presentation compiler.
+2026.05.21 02:13:21 INFO  no build target found for C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\SpaceImageController.java. Using fallback presentation compiler.
+2026.05.21 02:13:21 INFO  no build target found for C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\SpaceWaitlistController.java. Using fallback presentation compiler.
+2026.05.21 02:13:21 INFO  no build target found for C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\AvailabilityController.java. Using fallback presentation compiler.
+2026.05.21 02:13:21 INFO  no build target found for C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\spaces\controller\SpaceFavoriteController.java. Using fallback presentation compiler.
+2026.05.21 02:13:21 INFO  no build target found for C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\reservations\controller\ReservationRequestController.java. Using fallback presentation compiler.
+2026.05.21 02:13:21 INFO  no build target found for C:\Users\skinc\Desktop\Alacrity Education - Reservity\backend\src\Reservity\src\main\java\dev\tmmc\reservity\organization\controller\OrganizationController.java. Using fallback presentation compiler.

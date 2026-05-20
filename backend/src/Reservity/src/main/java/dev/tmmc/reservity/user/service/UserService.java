@@ -1,6 +1,7 @@
 package dev.tmmc.reservity.user.service;
 
 import dev.tmmc.reservity.common.exception.EntityNotFoundException;
+import dev.tmmc.reservity.common.pagination.PageResponse;
 import dev.tmmc.reservity.user.dto.UserResponse;
 import dev.tmmc.reservity.user.dto.UserUpdateRequest;
 import dev.tmmc.reservity.user.entity.User;
@@ -8,6 +9,7 @@ import dev.tmmc.reservity.user.mapper.UserMapper;
 import dev.tmmc.reservity.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +23,15 @@ public class UserService {
     private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
+    public PageResponse<UserResponse> list(Pageable pageable) {
+        return PageResponse.of(userRepository.findAll(pageable).map(userMapper::toResponse));
+    }
+
+    @Transactional(readOnly = true)
     public UserResponse getById(UUID id) {
         return userMapper.toResponse(loadActive(id));
     }
+
 
     @Transactional(readOnly = true)
     public UserResponse getByHandle(String handle) {

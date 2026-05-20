@@ -59,4 +59,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, UUID> 
 
     /** Used by cancel-confirmed-booking to remove the blocking row. */
     void deleteByRequestId(UUID requestId);
+
+    @EntityGraph(attributePaths = {"space", "space.building", "request", "user"})
+    @Query("SELECT r FROM Reservation r")
+    Page<Reservation> findAllDetailed(Pageable pageable);
 }
+
