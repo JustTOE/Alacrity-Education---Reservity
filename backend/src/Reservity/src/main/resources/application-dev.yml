@@ -1,0 +1,42 @@
+spring:
+  # Sensible defaults for `mvn spring-boot:run` against the docker-compose stack
+  # (postgres exposed on host port 5440, mailhog on 1025, minio on 9000).
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5440/reservity}
+    username: ${SPRING_DATASOURCE_USERNAME:reservity}
+    password: ${SPRING_DATASOURCE_PASSWORD:reservity}
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+  flyway:
+    # Pull in the dev-only seed (R__zz_seed_dev_data.sql) on top of the regular
+    # versioned + repeatable migrations. The dev seed is a sibling directory
+    # (not nested under db/migration/) so it stays out of the test profile,
+    # which uses the default location classpath:db/migration only.
+    locations: classpath:db/migration,classpath:db/migration-dev
+  mail:
+    host: ${SMTP_HOST:localhost}
+    port: ${SMTP_PORT:1025}
+    properties:
+      mail.smtp.auth: false
+      mail.smtp.starttls.enable: false
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.springframework.security: DEBUG
+
+reservity:
+  security:
+    jwt:
+      # 256-bit dev secret. Override via JWT_SECRET env var in any non-local environment.
+      secret: ${JWT_SECRET:dev-local-only-do-not-use-in-prod-this-is-a-placeholder-1234567890abcdef}
+  storage:
+    s3:
+      bucket: ${AWS_S3_BUCKET:reservity-uploads}
+      endpoint-override: ${AWS_S3_ENDPOINT:http://localhost:9000}
+      path-style-access: true
+      public-base-url: ${AWS_S3_PUBLIC_URL:http://localhost:9000/reservity-uploads}
+      access-key: ${AWS_ACCESS_KEY_ID:minioadmin}
+      secret-key: ${AWS_SECRET_ACCESS_KEY:minioadmin}

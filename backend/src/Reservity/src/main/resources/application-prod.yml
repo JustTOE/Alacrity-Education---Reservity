@@ -1,0 +1,18 @@
+# Production profile — all configuration is env-driven.
+# No SQL logging. Real SMTP. Real S3 (no endpoint override).
+spring:
+  jpa:
+    show-sql: false
+  mail:
+    host: ${SMTP_HOST}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+logging:
+  level:
+    root: WARN
+    dev.tmmc.reservity: INFO

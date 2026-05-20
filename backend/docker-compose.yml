@@ -1,0 +1,108 @@
+services:
+  postgres:
+    container_name: reservity_postgres
+    # Pin major version to avoid accidental data-directory incompatibilities from auto-upgrades.
+    image: postgres:17-alpine
+    ports:
+      # 5431 was already in use on the dev box by an unrelated postgres_db container.
+      # Bumped to 5440 for Reservity. Update SPRING_DATASOURCE_URL accordingly.
+      - "5440:5432"
+    environment:
+      POSTGRES_USER: reservity
+      POSTGRES_PASSWORD: reservity
+      POSTGRES_DB: reservity
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks: [reservity-net]
+    healthcheck:
+      # Keep readiness broad: report healthy when Postgres is accepting connections.
+      # This avoids false negatives when old named volumes were initialized with different DB names/users.
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -p 5432"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    restart: unless-stopped
+
+  mailhog:
+    container_name: reservity_mailhog
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+    networks: [reservity-net]
+    restart: unless-stopped
+
+  minio:
+    container_name: reservity_minio
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"   # API
+      - "9001:9001"   # Web UI
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio-data:/data
+    networks: [reservity-net]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  minio-init:
+    container_name: reservity_minio_init
+    image: minio/mc
+    depends_on:
+      minio:
+        condition: service_healthy
+    networks: [reservity-net]
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 minioadmin minioadmin;
+      mc mb --ignore-existing local/reservity-uploads;
+      mc anonymous set download local/reservity-uploads;
+      exit 0;
+      "
+
+  backend:
+    container_name: reservity_backend
+    build:
+      context: ./src/Reservity
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/reservity
+      SPRING_DATASOURCE_USERNAME: reservity
+      SPRING_DATASOURCE_PASSWORD: reservity
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-use-a-real-256-bit-secret}
+      AWS_S3_BUCKET: reservity-uploads
+      AWS_REGION: eu-central-1
+      AWS_S3_ENDPOINT: http://minio:9000
+      AWS_S3_PATH_STYLE: "true"
+      AWS_S3_PUBLIC_URL: http://localhost:9000/reservity-uploads
+      AWS_ACCESS_KEY_ID: minioadmin
+      AWS_SECRET_ACCESS_KEY: minioadmin
+      CORS_ALLOWED_ORIGIN: http://localhost:5173
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
+      minio:
+        condition: service_healthy
+    networks: [reservity-net]
+    restart: unless-stopped
+
+volumes:
+  postgres-data: {}
+  minio-data: {}
+
+networks:
+  reservity-net:
+    driver: bridge

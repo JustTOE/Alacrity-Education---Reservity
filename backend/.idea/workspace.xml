@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="38721662-9358-4ad3-a727-d5a5c44e063e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/backend.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/src.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/ER Diagram.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/ReservityApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/controller/AuthController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/dto/AuthResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/dto/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/dto/RefreshRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/dto/RegisterRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/entity/EmailVerificationToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/entity/PasswordResetToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/entity/RefreshToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/entity/UserBackupCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/repository/EmailVerificationTokenRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/repository/PasswordResetTokenRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/repository/RefreshTokenRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/repository/UserBackupCodeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/service/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/auth/service/RefreshTokenRevoker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/audit/BaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/config/AsyncConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/config/JpaConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/config/OpenApiConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/config/S3Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/config/WebConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/exception/ApiError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/exception/EntityNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/exception/ForbiddenOperationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/exception/IllegalStatusTransitionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/exception/ReservationConflictException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/pagination/PageResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/security/CustomUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/security/JwtAuthFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/security/JwtProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/security/JwtService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/security/PasswordEncoderConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/security/SecurityUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/security/TokenHasher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/storage/S3StorageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/storage/StorageProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/storage/StorageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/common/storage/StoredObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/controller/EventController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/controller/EventRsvpController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/EventAttendeeSummary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/EventCancelRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/EventCreateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/EventHostSummary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/EventLocation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/EventResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/EventRsvpResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/EventSummary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/EventUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/dto/RsvpRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/entity/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/entity/EventRsvp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/entity/EventRsvpId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/entity/enums/EventCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/entity/enums/EventDisplayStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/entity/enums/EventHostType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/entity/enums/EventStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/entity/enums/EventVisibility.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/entity/enums/RsvpStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/event/EventCancelledEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/event/EventCreatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/event/RsvpPromotedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/listener/EventNotificationListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/mapper/EventMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/mapper/EventRsvpMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/repository/EventRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/repository/EventRsvpRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/service/EventDisplayStatusCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/service/EventRsvpService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/service/EventService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/events/service/EventSlugGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/controller/NotificationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/dto/NotificationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/entity/Notification.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/entity/enums/NotificationChannel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/entity/enums/NotificationType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/listener/ReservationNotificationListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/mapper/NotificationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/repository/NotificationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/service/EmailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/service/NotificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/notifications/service/QuietHoursChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/controller/OrganizationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/dto/AddMemberRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/dto/MembershipResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/dto/OrganizationCreateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/dto/OrganizationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/dto/OrganizationUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/dto/UpdateMemberRoleRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/entity/MembershipRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/entity/OrgMembership.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/entity/OrgMembershipId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/entity/OrgType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/entity/Organization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/mapper/OrganizationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/repository/OrgMembershipRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/repository/OrganizationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/service/MembershipService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/organization/service/OrganizationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/controller/ReservationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/controller/ReservationRequestController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/dto/CancelRequestBody.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/dto/CreateReservationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/dto/DenyRequestBody.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/dto/PassResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/dto/ReservationRequestResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/dto/ReservationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/RecurrencePattern.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/Reservation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/ReservationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/ReservationSeries.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/ReservationStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/ReservationTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/ReservationTagConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/SavedPass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/SavedPassId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/entity/WalkInPass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/event/ReservationApprovedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/event/ReservationDeniedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/mapper/ReservationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/repository/ReservationRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/repository/ReservationRequestRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/repository/ReservationSeriesRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/repository/SavedPassRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/service/PassTokenGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/service/RecurrenceExpander.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/service/ReservationCodeGenerator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/service/ReservationLookup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/service/ReservationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/reservations/service/ReservationStateMachine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/availability/AvailabilityCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/availability/DayAvailability.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/availability/DayWindow.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/availability/EventBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/availability/HourSlot.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/availability/OperatingHours.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/availability/OperatingHoursParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/availability/SlotState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/AvailabilityController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/BuildingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/SpaceController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/SpaceFavoriteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/SpaceImageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/SpaceWaitlistController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/controller/VibeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/AvailabilityResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/BatchAvailabilityRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/BatchAvailabilityResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/BuildingResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/CalendarDayResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/ImageUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/SpaceFilterParams.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/SpaceImageResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/SpaceResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/SpaceSummary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/VibeResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/WaitlistRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/dto/WaitlistResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/Building.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/Space.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceClosure.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceFavorite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceFavoriteId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceOwnerType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceTypeConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceVibe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceVibeId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/SpaceWaitlistEntry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/entity/Vibe.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/mapper/BuildingMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/mapper/SpaceImageMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/mapper/SpaceMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/mapper/VibeMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/repository/BuildingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/repository/SpaceClosureRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/repository/SpaceFavoriteRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/repository/SpaceImageRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/repository/SpaceRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/repository/SpaceVibeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/repository/SpaceWaitlistRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/repository/VibeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/AvailabilityService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/BuildingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/DevImageSeeder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/SpaceFavoriteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/SpaceImageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/SpaceQuerySpec.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/SpaceService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/SpaceWaitlistService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/spaces/service/VibeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/dto/UserResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/dto/UserSettingsResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/dto/UserSettingsUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/dto/UserSocialDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/dto/UserUpdateRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/entity/Accent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/entity/AccountType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/entity/Density.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/entity/Theme.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/entity/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/entity/UserSettings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/entity/UserSocial.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/mapper/UserMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/repository/UserSettingsRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/repository/UserSocialRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/service/UserSettingsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/java/dev/tmmc/reservity/user/service/UserSocialService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/application-dev.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/application-prod.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/application-test.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration-dev/R__zz_seed_dev_data.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/R__seed_buildings.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/R__seed_vibes.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V10__drop_messaging.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V1__create_extensions.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V2__create_users_and_auth.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V3__create_organizations.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V4__create_buildings_and_vibes.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V5__create_spaces.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V6__create_reservations.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V7__create_notifications.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V8__create_conversations_and_messages.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/db/migration/V9__create_events_and_rsvps.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/templates/email/reservation-approved.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/main/resources/templates/email/reservation-denied.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/ReservityApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/auth/AuthFlowIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/events/EventControllerIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/events/EventDisplayStatusCalculatorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/events/EventNotificationListenerIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/events/EventRsvpServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/events/EventServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/events/EventSlugGeneratorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/events/EventVisibilityFilterTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/notifications/NotificationControllerIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/notifications/NotificationServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/notifications/QuietHoursCheckerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/notifications/ReservationNotificationListenerIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/reservations/PassTokenGeneratorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/reservations/RecurrenceExpanderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/reservations/ReservationApprovalIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/reservations/ReservationCodeGeneratorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/reservations/ReservationStateMachineTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/reservations/ReservationSubmitIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/spaces/AvailabilityCalculatorTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/spaces/AvailabilityIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/spaces/OperatingHoursParserTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/spaces/SpaceCatalogIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/spaces/SpaceFavoriteIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/spaces/SpaceImageUploadIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/spaces/SpaceImageValidationIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/spaces/SpaceTestFixtures.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/spaces/SpaceWaitlistIntegrationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Reservity/src/test/java/dev/tmmc/reservity/storage/S3StorageServiceTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/skinc/IdeaProjects/year 3/sem2/wp2/project/Alacrity Education - Reservity/backend" value="3C2Fw3GpkY50Q0gUxyRalzJ5WtI" />
+    </persistenceIdMap>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JustTOE&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/JustTOE/Alacrity-Education---Reservity",
+    "accountId": "53327c23-5183-4fa4-94b7-e46e72202a82"
+  }
+}]]></component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="3C2Fw3GpkY50Q0gUxyRalzJ5WtI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.reservity [clean].executor": "Run",
+    "Maven.reservity [install].executor": "Run",
+    "Maven.reservity [validate].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/University/Year 3/Web Programming/repo/Alacrity-Education---Reservity/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="ReservityApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="reservity" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="dev.tmmc.reservity.ReservityApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38721662-9358-4ad3-a727-d5a5c44e063e" name="Changes" comment="" />
+      <created>1775575993200</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1775575993200</updated>
+      <workItem from="1778138023181" duration="19000" />
+      <workItem from="1779314312015" duration="2150000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>
