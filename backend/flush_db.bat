@@ -1,0 +1,1 @@
+docker exec -it reservity_postgres psql -U reservity -d reservity -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"

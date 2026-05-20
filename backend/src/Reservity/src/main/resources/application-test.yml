@@ -1,0 +1,46 @@
+spring:
+  # NOTE: We *would* use Testcontainers (jdbc:tc:postgresql:18:///reservity) here,
+  # but this dev box runs Docker Desktop via Windows named pipes, which the JVM
+  # under Git Bash cannot reach without extra setup. For now, the test profile
+  # points at the docker-compose Postgres on host port 5440. To use Testcontainers
+  # later, swap this `url` block back to `jdbc:tc:postgresql:18:///reservity`.
+  datasource:
+    url: ${TEST_DATASOURCE_URL:jdbc:postgresql://localhost:5440/reservity}
+    username: ${TEST_DATASOURCE_USERNAME:reservity}
+    password: ${TEST_DATASOURCE_PASSWORD:reservity}
+    driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    clean-disabled: false
+    # The test profile only loads classpath:db/migration, but the dev profile
+    # adds db/migration-dev with R__zz_seed_dev_data. When the same Postgres
+    # is shared across profiles (this dev box), the test run sees a "missing"
+    # migration in flyway_schema_history that it can't resolve locally — that
+    # is not an error here, so silence it.
+    ignore-migration-patterns: "*:missing"
+  jpa:
+    show-sql: false
+    properties:
+      hibernate.show_sql: false
+  mail:
+    host: localhost
+    port: 1025
+
+reservity:
+  security:
+    jwt:
+      secret: test-secret-key-for-unit-tests-only-must-be-256-bits-long-padding-here
+      access-token-ttl: PT1H
+      refresh-token-ttl: P7D
+  cors:
+    allowed-origins:
+      - http://localhost:5173
+  storage:
+    s3:
+      bucket: test-bucket
+      region: us-east-1
+      endpoint-override: http://localhost:9000
+      path-style-access: true
+      public-base-url: http://localhost:9000/test-bucket
+      access-key: minioadmin
+      secret-key: minioadmin

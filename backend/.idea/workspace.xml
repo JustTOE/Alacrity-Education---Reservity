@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="38721662-9358-4ad3-a727-d5a5c44e063e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/.npmrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/.prettierignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/.prettierrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/Reservity/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/eslint.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/src/app.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/src/app.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/src/demo.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/src/lib/assets/favicon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/src/lib/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/src/routes/+layout.svelte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/src/routes/+page.svelte" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/src/routes/layout.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/src/routes/page.svelte.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/static/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/svelte.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Reservity/vite.config.ts" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/skinc/IdeaProjects/year 3/sem2/wp2/project/Alacrity Education - Reservity/backend" value="3C2Fw3GpkY50Q0gUxyRalzJ5WtI" />
+    </persistenceIdMap>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JustTOE&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/JustTOE/Alacrity-Education---Reservity.git&quot;,
+    &quot;accountId&quot;: &quot;53327c23-5183-4fa4-94b7-e46e72202a82&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="3C2Fw3GpkY50Q0gUxyRalzJ5WtI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.reservity [clean].executor": "Run",
+    "Maven.reservity [install].executor": "Run",
+    "Maven.reservity [validate].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/skinc/IdeaProjects/year 3/sem2/wp2/project/Alacrity Education - Reservity/backend",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38721662-9358-4ad3-a727-d5a5c44e063e" name="Changes" comment="" />
+      <created>1775575993200</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1775575993200</updated>
+      <workItem from="1778138023181" duration="19000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

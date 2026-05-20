@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reservity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="data.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="page-landing.jsx"></script>
+<script type="text/babel" src="page-listings.jsx"></script>
+<script type="text/babel" src="page-booking.jsx"></script>
+<script type="text/babel" src="page-account.jsx"></script>
+<script type="text/babel" src="page-admin.jsx"></script>
+<script type="text/babel" src="page-create-listing.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+function App() {
+  const [page, setPage] = useState('landing'); // landing | listings | pass | account | admin | create
+  const [pageProps, setPageProps] = useState({});
+  const [bookingDraft, setBookingDraft] = useState(null); // { space, hour }
+  const [confirmedBooking, setConfirmedBooking] = useState(null);
+  const [savedPasses, setSavedPasses] = useState([]);
+  const [toast, setToast] = useState(null);
+
+  const data = window.RESERVITY_DATA;
+
+  const navigate = (p, props = {}) => { setPage(p); setPageProps(props); window.scrollTo(0, 0); };
+
+  const startBook = (space, hour, ctx) => setBookingDraft({ space, hour, ctx });
+  const confirmBook = (b) => {
+    setConfirmedBooking(b);
+    setSavedPasses(prev => [b, ...prev]);
+    setBookingDraft(null);
+    setPage('pass');
+    window.scrollTo(0, 0);
+  };
+
+  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(null), 2400); };
+
+  return (
+    <div className="app">
+      <header className="nav">
+        <div className="nav-inner">
+          <button onClick={() => navigate('landing')} aria-label="Reservity home"><Wordmark size={20} /></button>
+          <nav className="nav-tabs" aria-label="Primary">
+            <button className={`nav-tab ${page === 'landing' ? 'active' : ''}`} onClick={() => navigate('landing')}>Home</button>
+            <button className={`nav-tab ${page === 'listings' ? 'active' : ''}`} onClick={() => navigate('listings')}>Spaces</button>
+            <button className={`nav-tab ${page === 'create' ? 'active' : ''}`} onClick={() => navigate('create')}>List a space</button>
+            <button className={`nav-tab ${page === 'pass' ? 'active' : ''}`} onClick={() => confirmedBooking ? setPage('pass') : showToast('Book something first')}>My pass</button>
+          </nav>
+          <div className="nav-spacer" />
+          <button className="nav-tab" onClick={() => showToast('On-campus only')} aria-label="Location">📍 Hawthorn Campus</button>
+          <button
+            className={`admin-badge ${page === 'admin' ? 'active' : ''}`}
+            onClick={() => navigate('admin')}
+            aria-label="Open admin console"
+            title="You're signed in as an admin"
+          >
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M8 1.5 L13.5 4 V8.5 C13.5 11.5 11 13.5 8 14.5 C5 13.5 2.5 11.5 2.5 8.5 V4 Z"/></svg>
+            ADMIN
+          </button>
+          <button className="avatar" onClick={() => navigate('account')} aria-label="Open dashboard">M</button>
+        </div>
+      </header>
+
+      <main style={{ flex: 1 }}>
+        {page === 'landing' && <LandingPage data={data} onNavigate={navigate} onBook={startBook} />}
+        {page === 'listings' && <ListingsPage data={data} onNavigate={navigate} onBook={startBook} initialSpaceId={pageProps.spaceId} />}
+        {page === 'pass' && confirmedBooking && <BookingPass booking={confirmedBooking} onBack={() => navigate('listings')} onShare={() => showToast('Link copied')} />}
+        {page === 'account' && <AccountPage data={data} savedPasses={savedPasses} onNavigate={navigate} />}
+        {page === 'admin' && <AdminPage data={data} />}
+        {page === 'create' && <CreateListingPage data={data} onNavigate={navigate} onToast={showToast} />}
+      </main>
+
+      {bookingDraft && (
+        <BookingFlow
+          space={bookingDraft.space}
+          hour={bookingDraft.hour}
+          ctx={bookingDraft.ctx}
+          data={data}
+          onCancel={() => setBookingDraft(null)}
+          onConfirm={confirmBook}
+        />
+      )}
+
+      {toast && <div className="toast">{toast}</div>}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

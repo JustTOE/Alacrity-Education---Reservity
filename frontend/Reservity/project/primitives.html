@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Reservity — Identity Primitives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --ink:#1b1b1f;
+    --ink-soft:#464651;
+    --paper:#fbf8fe;
+    --paper-2:#f0edf2;
+    --line:#c7c5d3;
+    --line-soft:#e4e1e7;
+    --indigo:#4b52a7;
+    --indigo-2:#646bc2;
+    --indigo-deep:#373d92;
+    --indigo-pale:#e0e0ff;
+    --orange:#ff823c;
+    --orange-deep:#9f4200;
+    --lavender:#bec2ff;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:"Work Sans",system-ui,sans-serif;}
+  .wrap{max-width:1280px;margin:0 auto;padding:64px 40px;}
+  h1{font-family:Lexend;font-weight:700;letter-spacing:-0.03em;font-size:64px;line-height:1;margin:0 0 8px;}
+  h2{font-family:Lexend;font-weight:600;letter-spacing:-0.02em;font-size:32px;margin:64px 0 16px;}
+  .kicker{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--indigo);margin:0 0 24px;}
+  .grid{display:grid;gap:24px;grid-template-columns:repeat(12,1fr);}
+  .card{background:#fff;border:1px solid var(--line-soft);border-radius:16px;padding:28px;}
+  .mono{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-soft);letter-spacing:0.04em;}
+  .label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-soft);}
+  .col-4{grid-column:span 4}
+  .col-6{grid-column:span 6}
+  .col-12{grid-column:span 12}
+  .swatch{display:flex;align-items:center;gap:12px;padding:10px 14px;border:1px solid var(--line-soft);border-radius:8px;background:#fff;}
+  .swatch .dot{width:24px;height:24px;border-radius:6px;border:1px solid rgba(0,0,0,.06)}
+  .underline-svg{display:inline-block;vertical-align:bottom}
+
+  /* Hand drawn underline mixin */
+  .verb{position:relative;display:inline-block;}
+  .verb svg{position:absolute;left:-4%;right:-4%;bottom:-12px;width:108%;height:18px;overflow:visible;}
+
+  /* Grainy gradient block */
+  .gradient-block{
+    position:relative;border-radius:16px;overflow:hidden;color:#fff;padding:48px;min-height:280px;
+    background:
+      radial-gradient(120% 100% at 0% 0%, #8a7df0 0%, transparent 55%),
+      radial-gradient(120% 100% at 100% 100%, #ff823c 0%, transparent 55%),
+      linear-gradient(135deg,#4b52a7 0%, #6e5fd6 50%, #ff9a5f 100%);
+  }
+  .gradient-block::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode:overlay;opacity:.55;
+  }
+  .gradient-block > *{position:relative;z-index:1;}
+
+  /* Architectural line backdrop */
+  .arch-bg{position:relative;background:var(--paper);}
+  .arch-bg::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(75,82,167,.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(75,82,167,.08) 1px, transparent 1px);
+    background-size:24px 24px;
+    mask-image:radial-gradient(80% 70% at 50% 40%, #000 30%, transparent 100%);
+  }
+
+  .stroke{stroke:var(--indigo);fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .stroke-thin{stroke-width:1}
+  .stroke-mid{stroke-width:1.5}
+  .dim{stroke:var(--indigo);stroke-width:1;fill:none;opacity:.55}
+  .tick{stroke:var(--indigo);stroke-width:1;opacity:.55}
+  .tag{font-family:"JetBrains Mono",monospace;font-size:9px;fill:var(--indigo);letter-spacing:0.1em}
+
+  .logo-row{display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+  .logo-tile{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px;border:1px dashed var(--line);border-radius:12px;}
+  .logo-mark{display:block}
+
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .gallery .card{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;padding:0;overflow:hidden}
+
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;font-size:12px;font-weight:600;font-family:"Work Sans"}
+  .pill.av{background:#fff3ea;color:#9f4200}
+  .pill.now{background:#e8feee;color:#0f7a35}
+  .pill.booked{background:#f0edf2;color:#464651}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">Reservity / identity v0.1</p>
+  <h1>Build. <span class="verb">Draw.<svg viewBox="0 0 200 18" preserveAspectRatio="none"><path d="M2 12 C 40 4, 90 4, 130 10 S 195 14, 198 8" stroke="#ff823c" stroke-width="3" fill="none" stroke-linecap="round"/></svg></span> Book.</h1>
+  <p style="max-width:640px;color:var(--ink-soft);font-size:18px;line-height:1.6;margin-top:24px;">
+    Three primitives anchor the identity: a logomark (an isometric room you can enter), an architectural line-work vocabulary (floor plans, dimension lines, grid paper), and a grainy indigo→orange gradient. Everything else composes from these.
+  </p>
+
+  <h2>1 · Logomark</h2>
+  <p class="mono">A room you can enter — isometric cube, one face removed. Reads as "R" obliquely.</p>
+  <div class="card" style="margin-top:16px">
+    <div class="logo-row">
+      <!-- 16px -->
+      <div class="logo-tile">
+        <svg width="16" height="16" viewBox="0 0 32 32"><g class="stroke stroke-mid">
+          <path d="M6 11 L16 6 L26 11 L26 23 L16 28 L6 23 Z"/>
+          <path d="M16 6 L16 18 L26 23"/>
+          <path d="M6 11 L16 18"/>
+        </g></svg>
+        <span class="label">16px</span>
+      </div>
+      <!-- 32px -->
+      <div class="logo-tile">
+        <svg width="32" height="32" viewBox="0 0 32 32"><g class="stroke stroke-mid">
+          <path d="M6 11 L16 6 L26 11 L26 23 L16 28 L6 23 Z"/>
+          <path d="M16 6 L16 18 L26 23"/>
+          <path d="M6 11 L16 18"/>
+          <path d="M11 14.5 L11 21.5" opacity=".4"/>
+          <path d="M21 14.5 L21 21.5" opacity=".4"/>
+        </g></svg>
+        <span class="label">32px</span>
+      </div>
+      <!-- 64 -->
+      <div class="logo-tile">
+        <svg width="64" height="64" viewBox="0 0 32 32"><g class="stroke stroke-mid">
+          <path d="M6 11 L16 6 L26 11 L26 23 L16 28 L6 23 Z"/>
+          <path d="M16 6 L16 18 L26 23"/>
+          <path d="M6 11 L16 18"/>
+          <path d="M11 14.5 L11 21.5" opacity=".5"/>
+          <path d="M21 14.5 L21 21.5" opacity=".5"/>
+          <circle cx="16" cy="18" r="0.8" fill="#ff823c" stroke="none"/>
+        </g></svg>
+        <span class="label">64px</span>
+      </div>
+      <!-- Wordmark -->
+      <div class="logo-tile" style="flex-direction:row;gap:10px">
+        <svg width="28" height="28" viewBox="0 0 32 32"><g class="stroke stroke-mid">
+          <path d="M6 11 L16 6 L26 11 L26 23 L16 28 L6 23 Z"/>
+          <path d="M16 6 L16 18 L26 23"/>
+          <path d="M6 11 L16 18"/>
+          <circle cx="16" cy="18" r="0.8" fill="#ff823c" stroke="none"/>
+        </g></svg>
+        <span style="font-family:Lexend;font-weight:700;font-size:22px;letter-spacing:-0.02em">Reservity</span>
+      </div>
+      <!-- big -->
+      <div class="logo-tile" style="flex:1;min-width:280px">
+        <svg width="100%" height="220" viewBox="0 0 32 32"><g class="stroke" stroke-width="0.6">
+          <path d="M6 11 L16 6 L26 11 L26 23 L16 28 L6 23 Z"/>
+          <path d="M16 6 L16 18 L26 23"/>
+          <path d="M6 11 L16 18"/>
+          <path d="M11 14.5 L11 21.5" opacity=".5"/>
+          <path d="M21 14.5 L21 21.5" opacity=".5"/>
+          <path d="M16 18 L11 20.7" opacity=".4"/>
+          <path d="M16 18 L21 20.7" opacity=".4"/>
+          <circle cx="16" cy="18" r="0.6" fill="#ff823c" stroke="none"/>
+        </g></svg>
+      </div>
+    </div>
+  </div>
+
+  <h2>2 · Architectural line-work</h2>
+  <p class="mono">1–1.5px indigo strokes. Floor plans, isometric sketches, dimension lines, grid paper. Used everywhere.</p>
+  <div class="grid" style="margin-top:16px">
+
+    <!-- Floor plan -->
+    <div class="card col-6">
+      <span class="label">Floor plan · Lab 4B</span>
+      <svg viewBox="0 0 400 220" style="width:100%;height:auto;margin-top:12px">
+        <!-- outer walls -->
+        <g class="stroke stroke-mid">
+          <rect x="20" y="20" width="360" height="180"/>
+          <line x1="200" y1="20" x2="200" y2="120"/>
+          <line x1="200" y1="120" x2="380" y2="120"/>
+          <line x1="120" y1="120" x2="120" y2="200"/>
+          <!-- door arcs -->
+          <path d="M200 80 A 20 20 0 0 1 220 100" />
+          <path d="M120 160 A 20 20 0 0 1 140 180" />
+        </g>
+        <!-- furniture -->
+        <g class="stroke stroke-thin">
+          <rect x="40" y="40" width="60" height="20"/>
+          <rect x="40" y="68" width="60" height="20"/>
+          <rect x="120" y="40" width="60" height="20"/>
+          <circle cx="280" cy="60" r="14"/>
+          <circle cx="320" cy="60" r="14"/>
+          <rect x="220" y="140" width="40" height="40"/>
+          <rect x="280" y="140" width="40" height="40"/>
+          <rect x="40" y="140" width="60" height="40"/>
+        </g>
+        <!-- dim lines -->
+        <g class="dim">
+          <line x1="20" y1="210" x2="380" y2="210"/>
+          <line x1="20" y1="206" x2="20" y2="214"/>
+          <line x1="380" y1="206" x2="380" y2="214"/>
+        </g>
+        <text x="200" y="218" class="tag" text-anchor="middle">12.0 M</text>
+      </svg>
+    </div>
+
+    <!-- Iso room -->
+    <div class="card col-6">
+      <span class="label">Isometric · Coding Pod 3</span>
+      <svg viewBox="0 0 400 220" style="width:100%;height:auto;margin-top:12px">
+        <g class="stroke stroke-mid">
+          <!-- floor -->
+          <path d="M80 160 L200 100 L320 160 L200 220 Z"/>
+          <!-- left wall -->
+          <path d="M80 160 L80 80 L200 20 L200 100 Z"/>
+          <!-- back wall -->
+          <path d="M200 100 L200 20 L320 80 L320 160 Z"/>
+          <!-- desk -->
+          <path d="M150 130 L210 100 L260 125 L200 155 Z"/>
+          <path d="M150 130 L150 138 L200 163 L200 155"/>
+          <path d="M260 125 L260 133 L200 163"/>
+          <!-- monitor -->
+          <path d="M180 105 L210 90 L210 70 L180 85 Z"/>
+          <!-- chair -->
+          <path d="M170 168 L195 155 L210 162 L185 175 Z"/>
+        </g>
+        <g class="dim">
+          <line x1="20" y1="100" x2="80" y2="70"/>
+          <text x="40" y="84" class="tag">CEILING 2.4M</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Dim lines + key -->
+    <div class="card col-6">
+      <span class="label">Dimension lines · key</span>
+      <svg viewBox="0 0 400 160" style="width:100%;height:auto;margin-top:12px">
+        <g class="stroke stroke-thin">
+          <line x1="40" y1="60" x2="360" y2="60"/>
+          <line x1="40" y1="50" x2="40" y2="70"/>
+          <line x1="200" y1="50" x2="200" y2="70"/>
+          <line x1="360" y1="50" x2="360" y2="70"/>
+        </g>
+        <text x="120" y="55" class="tag" text-anchor="middle">SEATS · 6</text>
+        <text x="280" y="55" class="tag" text-anchor="middle">AREA · 24M²</text>
+        <g class="stroke stroke-thin" opacity=".45">
+          <line x1="40" y1="100" x2="40" y2="140"/>
+          <line x1="40" y1="120" x2="120" y2="120" stroke-dasharray="2 3"/>
+          <circle cx="120" cy="120" r="3"/>
+        </g>
+        <text x="50" y="118" class="tag">PIN · 4F-12</text>
+      </svg>
+    </div>
+
+    <!-- Grid paper backdrop -->
+    <div class="card col-6 arch-bg" style="overflow:hidden">
+      <span class="label">Grid paper backdrop</span>
+      <div style="position:relative;z-index:1;padding:30px 0 10px">
+        <p style="font-family:Lexend;font-weight:600;font-size:28px;margin:0;letter-spacing:-0.02em">Drawn, not stocked.</p>
+        <p class="mono" style="margin:8px 0 0">Mask-fade so the grid never fights the type.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>3 · Grain gradient</h2>
+  <p class="mono">SVG feTurbulence overlaid on indigo→orange. Hero blocks and booking pass only.</p>
+  <div class="grid" style="margin-top:16px">
+    <div class="gradient-block col-6">
+      <span class="label" style="color:rgba(255,255,255,.7)">PASS · 24 OCT</span>
+      <p style="font-family:Lexend;font-weight:700;font-size:48px;line-height:1;letter-spacing:-0.03em;margin:24px 0 8px">Lab 4B</p>
+      <p style="margin:0;opacity:.85">3:00 — 5:00 PM · Maya R.</p>
+    </div>
+    <div class="card col-6">
+      <span class="label">Recipe</span>
+      <pre class="mono" style="white-space:pre-wrap;line-height:1.6;margin-top:12px">background:
+  radial-gradient(120% 100% at 0% 0%, #8a7df0, transparent 55%),
+  radial-gradient(120% 100% at 100% 100%, #ff823c, transparent 55%),
+  linear-gradient(135deg, #4b52a7, #6e5fd6, #ff9a5f);
++ feTurbulence noise overlay (mix-blend-mode: overlay, .55)</pre>
+    </div>
+  </div>
+
+  <h2>4 · Color & status</h2>
+  <div class="grid" style="margin-top:16px">
+    <div class="card col-6">
+      <span class="label">Palette</span>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:12px">
+        <div class="swatch"><span class="dot" style="background:#4b52a7"></span><span class="mono">indigo · 4B52A7</span></div>
+        <div class="swatch"><span class="dot" style="background:#646bc2"></span><span class="mono">indigo-2 · 646BC2</span></div>
+        <div class="swatch"><span class="dot" style="background:#ff823c"></span><span class="mono">orange · FF823C</span></div>
+        <div class="swatch"><span class="dot" style="background:#9f4200"></span><span class="mono">orange-deep · 9F4200</span></div>
+        <div class="swatch"><span class="dot" style="background:#fbf8fe;border-color:#c7c5d3"></span><span class="mono">paper · FBF8FE</span></div>
+        <div class="swatch"><span class="dot" style="background:#1b1b1f"></span><span class="mono">ink · 1B1B1F</span></div>
+      </div>
+    </div>
+    <div class="card col-6">
+      <span class="label">Status pills (replace star ratings)</span>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+        <span class="pill now">● Available now</span>
+        <span class="pill av">◐ Free in 30 min</span>
+        <span class="pill booked">○ Booked till 6pm</span>
+      </div>
+      <span class="label" style="margin-top:24px;display:block">Sparkline · next 12h</span>
+      <svg viewBox="0 0 160 28" style="width:200px;margin-top:10px">
+        <g>
+          <!-- 12 bars: filled=booked, hollow=free -->
+          <g fill="#4b52a7">
+            <rect x="0" y="4" width="8" height="20"/>
+            <rect x="12" y="4" width="8" height="20"/>
+            <rect x="24" y="4" width="8" height="20" opacity=".25"/>
+            <rect x="36" y="4" width="8" height="20" opacity=".25"/>
+            <rect x="48" y="4" width="8" height="20"/>
+            <rect x="60" y="4" width="8" height="20" opacity=".25"/>
+            <rect x="72" y="4" width="8" height="20" opacity=".25"/>
+            <rect x="84" y="4" width="8" height="20" opacity=".25"/>
+            <rect x="96" y="4" width="8" height="20"/>
+            <rect x="108" y="4" width="8" height="20"/>
+            <rect x="120" y="4" width="8" height="20"/>
+            <rect x="132" y="4" width="8" height="20" opacity=".25"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <p class="mono" style="margin-top:64px;color:var(--ink-soft)">Locked? On to the landing page →</p>
+</div>
+</body>
+</html>

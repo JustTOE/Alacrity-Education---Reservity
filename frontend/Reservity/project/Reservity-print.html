@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Reservity — Print</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ink:#1b1b1f; --ink-soft:#464651; --ink-mute:#767683;
+  --paper:#fbf8fe; --paper-2:#f6f2f8; --paper-3:#f0edf2;
+  --line:#c7c5d3; --line-soft:#e4e1e7;
+  --indigo:#4b52a7; --indigo-2:#646bc2; --indigo-deep:#373d92; --indigo-pale:#e0e0ff;
+  --orange:#ff823c; --orange-deep:#9f4200; --orange-pale:#ffdbcb;
+  --lavender:#bec2ff; --green:#0f7a35; --green-pale:#e8feee;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#dad7dc;color:var(--ink);font-family:"Work Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+
+.h-display{font-family:Lexend;font-weight:700;letter-spacing:-0.03em;line-height:0.95}
+.h-headline{font-family:Lexend;font-weight:600;letter-spacing:-0.02em;line-height:1.1}
+.h-mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.label{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft)}
+.kicker{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--indigo)}
+
+.pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:9999px;font-size:11px;font-weight:600;}
+.pill-now{background:var(--green-pale);color:var(--green)}
+.pill-soon{background:#fff3ea;color:var(--orange-deep)}
+.pill-booked{background:var(--paper-3);color:var(--ink-soft)}
+.pill-indigo{background:var(--indigo-pale);color:var(--indigo-deep)}
+
+.card{background:#fff;border:1px solid var(--line-soft);border-radius:12px;}
+
+/* Page chrome */
+.page{
+  width:297mm; height:210mm;
+  background:var(--paper);
+  margin:8mm auto;
+  position:relative;
+  overflow:hidden;
+  page-break-after:always;
+  break-after:page;
+  padding:14mm 16mm;
+  box-shadow:0 4px 18px rgba(0,0,0,0.12);
+}
+.page:last-child{page-break-after:auto;break-after:auto}
+
+.pg-frame{
+  display:flex; flex-direction:column; height:100%;
+}
+.pg-head{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  border-bottom:1px solid var(--line-soft);
+  padding-bottom:6mm; margin-bottom:6mm;
+}
+.pg-head .lhs{display:flex;align-items:center;gap:10mm}
+.wordmark{display:flex;align-items:center;gap:6px;font-family:Lexend;font-weight:700;font-size:18px;letter-spacing:-0.02em;color:var(--ink)}
+.wordmark-mark{width:22px;height:22px}
+.pg-num{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.2em;color:var(--ink-mute)}
+
+.pg-foot{
+  margin-top:auto; padding-top:5mm; border-top:1px solid var(--line-soft);
+  display:flex; justify-content:space-between;
+  font-family:"JetBrains Mono",monospace; font-size:9px; letter-spacing:0.16em; color:var(--ink-mute); text-transform:uppercase;
+}
+
+/* Architectural grid background, subtle */
+.archgrid{position:relative}
+.archgrid::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(to right, rgba(75,82,167,.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(75,82,167,.06) 1px, transparent 1px);
+  background-size:24px 24px;
+  -webkit-mask-image: radial-gradient(80% 70% at 50% 40%, #000 30%, transparent 100%);
+          mask-image: radial-gradient(80% 70% at 50% 40%, #000 30%, transparent 100%);
+}
+.archgrid > *{position:relative;z-index:1}
+
+/* ============================ COVER ============================ */
+.cover{
+  background:radial-gradient(70% 90% at 100% 0%, rgba(255,168,120,0.45) 0%, transparent 60%),
+             radial-gradient(80% 80% at 0% 100%, rgba(120,108,200,0.50) 0%, transparent 60%),
+             linear-gradient(160deg,#3a4198 0%, #4b52a7 55%, #5e5a9c 100%);
+  color:#fff;
+}
+.cover .pg-head{border-bottom-color:rgba(255,255,255,0.3)}
+.cover .pg-head .wordmark{color:#fff}
+.cover .pg-foot{border-top-color:rgba(255,255,255,0.25);color:rgba(255,255,255,0.75)}
+.cover .pg-num{color:rgba(255,255,255,0.6)}
+.cover .lead{display:flex;flex-direction:column;justify-content:center;flex:1}
+.cover h1{font-family:Lexend;font-weight:700;font-size:96px;letter-spacing:-0.04em;line-height:0.92;margin:0}
+.cover h1 em{font-style:normal;color:#ffdbcb}
+.cover .deck{font-size:22px;max-width:680px;line-height:1.4;color:rgba(255,255,255,0.92);margin-top:18px}
+.cover-meta{display:flex;gap:18mm;margin-top:14mm}
+.cover-meta div .h-mono{font-size:10px;letter-spacing:0.2em;color:rgba(255,255,255,0.7);text-transform:uppercase}
+.cover-meta div strong{display:block;font-family:Lexend;font-weight:600;font-size:18px;margin-top:4px}
+.bg-iso{position:absolute;right:-40mm;bottom:-30mm;opacity:0.18;pointer-events:none}
+
+/* ============================ HOME ============================ */
+.hero-head{display:grid;grid-template-columns:1.4fr 1fr;gap:8mm;align-items:end;margin-bottom:6mm}
+.hero-head h1{font-family:Lexend;font-weight:700;font-size:54px;line-height:0.95;margin:0;letter-spacing:-0.03em}
+.hero-head h1 em{font-style:normal;color:var(--orange-deep);font-style:italic}
+
+.fakebar{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line-soft);border-radius:14px;padding:10px 14px}
+.fakebar .seg{display:flex;align-items:center;gap:8px;padding:8px 14px;border-right:1px solid var(--line-soft);font-size:12px;color:var(--ink-soft);font-weight:500}
+.fakebar .seg:last-child{border-right:0;color:var(--indigo)}
+.fakebar .pill-now{margin-left:auto}
+
+.now-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;margin-top:5mm}
+.now-card{padding:5mm;border:1px solid var(--line-soft);border-radius:10px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.now-card .room-name{font-family:Lexend;font-weight:600;font-size:15px}
+.now-card .room-meta{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-mute)}
+.now-card .row{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.mini-plan{height:42px;background:var(--paper-2);border-radius:6px;position:relative;overflow:hidden;border:1px solid var(--line-soft)}
+
+.cats-strip{display:flex;gap:6mm;margin-top:6mm;}
+.cats-strip .cat{flex:1;padding:5mm 4mm;border:1px solid var(--line-soft);border-radius:10px;background:#fff}
+.cats-strip .cat .h-mono{font-size:9px;letter-spacing:0.18em;color:var(--indigo);text-transform:uppercase}
+.cats-strip .cat strong{display:block;font-family:Lexend;font-weight:600;font-size:18px;margin-top:4px}
+.cats-strip .cat span{font-size:11px;color:var(--ink-mute);display:block;margin-top:6px}
+
+/* ============================ SPACES (listing) ============================ */
+.lst-wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:8mm;flex:1;min-height:0}
+.lst-list{display:flex;flex-direction:column;gap:4mm;overflow:hidden}
+.lst-card{display:grid;grid-template-columns:80px 1fr auto;gap:5mm;padding:4mm;border:1px solid var(--line-soft);border-radius:10px;background:#fff;align-items:center}
+.lst-card .name{font-family:Lexend;font-weight:600;font-size:16px;margin:0}
+.lst-card .meta{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-mute);margin-top:3px;text-transform:uppercase}
+.lst-card .blurb{font-size:12px;color:var(--ink-soft);margin-top:6px;line-height:1.4}
+.lst-card .priceblock{text-align:right}
+.lst-card .priceblock .h-display{font-family:Lexend;font-weight:700;font-size:20px;color:var(--indigo)}
+.lst-card .priceblock .label{font-size:9px;color:var(--ink-mute);margin-top:2px}
+
+/* Mini schedule */
+.lst-detail{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line-soft);border-radius:14px;padding:5mm;min-height:0}
+.lst-detail h3{font-family:Lexend;font-weight:600;font-size:18px;margin:0}
+.sched-row{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--line-soft)}
+.sched-row:last-child{border-bottom:0}
+.sched-row .hour{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-mute);letter-spacing:0.05em}
+.sched-bar{height:14px;border-radius:4px;background:var(--green-pale);position:relative}
+.sched-bar.busy{background:repeating-linear-gradient(45deg,#e4e1e7,#e4e1e7 3px,#f0edf2 3px,#f0edf2 6px)}
+.sched-bar .lbl{position:absolute;left:6px;top:0;bottom:0;display:flex;align-items:center;font-size:9px;color:var(--ink);font-weight:600}
+
+/* ============================ PASS ============================ */
+.pass-page{background:var(--paper-3)}
+.pass-grid{display:grid;grid-template-columns:auto 1fr;gap:10mm;flex:1;align-items:start}
+.pass{
+  width:100mm; aspect-ratio:1080/1920;
+  border-radius:12mm; overflow:hidden; color:#fff;
+  background:radial-gradient(70% 90% at 100% 0%, rgba(255,168,120,0.45) 0%, transparent 60%),
+             radial-gradient(80% 80% at 0% 100%, rgba(120,108,200,0.50) 0%, transparent 60%),
+             linear-gradient(160deg,#3a4198 0%, #4b52a7 55%, #5e5a9c 100%);
+  position:relative;
+  box-shadow:0 8px 30px rgba(27,27,31,.18);
+  display:flex;flex-direction:column;
+}
+.pass .pass-head{padding:6mm 6mm 0;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2}
+.pass .pass-body{padding:6mm 6mm 0;position:relative;z-index:2}
+.pass .pass-body .h-mono{font-size:9px;letter-spacing:0.22em;opacity:0.85}
+.pass h2{font-family:Lexend;font-weight:700;font-size:34px;line-height:0.95;margin:6px 0 0;letter-spacing:-0.03em}
+.pass h2 em{font-style:normal;color:#ffd9bf}
+.pass .pass-blurb{font-size:11px;line-height:1.4;margin-top:8px;opacity:0.95}
+.pass .pass-iso{flex:1;display:grid;place-items:center;padding:4mm;position:relative;z-index:2}
+.pass-perf{border-top:1.4px dashed rgba(255,255,255,0.55);margin:0 5mm}
+.pass-foot{padding:5mm 6mm 6mm;display:grid;grid-template-columns:1fr auto;gap:5mm;align-items:flex-end;position:relative;z-index:2}
+.pass-foot .h-mono{font-size:9px;letter-spacing:0.22em;opacity:0.85}
+.pass-foot .when{font-family:Lexend;font-weight:700;font-size:22px;margin:3px 0 8px;letter-spacing:-0.02em}
+.pass-foot .who{font-size:11px;font-weight:600}
+.qrbox{background:#fff;padding:5px;border-radius:6px;width:60px;height:60px;display:grid;grid-template-columns:repeat(7,1fr);gap:1px}
+.qrbox div{background:#1b1b1f;border-radius:1px}
+.qrbox div.off{background:transparent}
+
+.pass-info{padding-top:2mm}
+.pass-info h2{font-family:Lexend;font-weight:700;font-size:30px;margin:0 0 4mm;letter-spacing:-0.02em}
+.pass-info .lead{font-size:14px;color:var(--ink-soft);max-width:140mm;line-height:1.5}
+.pass-info .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:6mm}
+.pass-info .info-card{background:#fff;border:1px solid var(--line-soft);border-radius:10px;padding:5mm}
+.pass-info .info-card .h-mono{font-size:9px;letter-spacing:0.2em;color:var(--ink-mute);text-transform:uppercase}
+.pass-info .info-card strong{display:block;font-family:Lexend;font-weight:600;font-size:18px;margin-top:4px}
+.pass-info .info-card span{font-size:12px;color:var(--ink-soft);display:block;margin-top:6px;line-height:1.5}
+
+/* ============================ ACCOUNT (dashboard) ============================ */
+.acct-cols{display:grid;grid-template-columns:60mm 1fr;gap:8mm;flex:1;min-height:0}
+.acct-side{background:#fff;border:1px solid var(--line-soft);border-radius:12px;padding:5mm;display:flex;flex-direction:column;gap:2mm}
+.acct-side .who{display:flex;gap:8px;align-items:center;padding-bottom:4mm;border-bottom:1px solid var(--line-soft);margin-bottom:3mm}
+.acct-side .who .av{width:32px;height:32px;border-radius:99px;background:linear-gradient(135deg,var(--indigo),var(--orange));color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px}
+.acct-side .who strong{display:block;font-family:Lexend;font-weight:600;font-size:14px}
+.acct-side .who span{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.12em}
+.acct-side .nav-item{display:flex;gap:8px;padding:7px 8px;border-radius:6px;font-size:12px;color:var(--ink-soft);align-items:center}
+.acct-side .nav-item.active{background:var(--indigo);color:#fff}
+.acct-side .nav-item .si-label{font-weight:600;font-size:12px}
+.acct-side .nav-item .si-sub{font-size:9px;color:var(--ink-mute)}
+.acct-side .nav-item.active .si-sub{color:rgba(255,255,255,0.78)}
+.acct-side .nav-item .icon{width:14px;height:14px}
+.acct-side .nav-sep{font-family:"JetBrains Mono",monospace;font-size:8px;letter-spacing:0.18em;color:var(--ink-mute);padding:8px 8px 4px}
+
+.acct-main{display:flex;flex-direction:column;gap:5mm;min-width:0;min-height:0}
+.acct-h1{font-family:Lexend;font-weight:700;font-size:36px;margin:0;letter-spacing:-0.02em}
+
+.acct-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm}
+.acct-stats .s{padding:4mm;background:#fff;border:1px solid var(--line-soft);border-radius:10px}
+.acct-stats .s .h-display{font-family:Lexend;font-weight:700;font-size:26px;line-height:1;color:var(--indigo)}
+.acct-stats .s .unit{font-size:11px;color:var(--ink-soft);margin-top:4px}
+.acct-stats .s .sub{font-family:"JetBrains Mono",monospace;font-size:9px;letter-spacing:0.14em;color:var(--ink-mute);text-transform:uppercase;margin-top:3px}
+
+.checkin{padding:4mm 5mm;border:1px solid rgba(255,130,60,0.3);background:linear-gradient(135deg,rgba(255,130,60,0.1),rgba(255,130,60,0.04));border-radius:10px;display:flex;align-items:center;gap:10px}
+.checkin .dot{width:10px;height:10px;border-radius:99px;background:var(--orange);flex-shrink:0}
+.checkin .h-mono{font-size:9px;letter-spacing:0.18em;color:var(--orange-deep)}
+.checkin h3{font-family:Lexend;font-weight:700;font-size:18px;margin:2px 0 0}
+.checkin .meta{font-size:11px;color:var(--ink-soft)}
+
+.upcoming-list{display:flex;flex-direction:column;gap:3mm}
+.upcoming-row{display:flex;gap:5mm;align-items:center;padding:3mm 4mm;background:#fff;border:1px solid var(--line-soft);border-radius:10px}
+.upcoming-row .date{display:flex;flex-direction:column;align-items:center;min-width:36px}
+.upcoming-row .date .h-mono{font-size:9px;color:var(--ink-mute);letter-spacing:0.16em}
+.upcoming-row .date .day{font-family:Lexend;font-weight:700;font-size:22px;line-height:1;color:var(--indigo)}
+.upcoming-row .bar{width:3px;align-self:stretch;border-radius:99px;background:var(--indigo)}
+.upcoming-row .grow{flex:1}
+.upcoming-row .room{font-family:Lexend;font-weight:600;font-size:14px}
+.upcoming-row .meta{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.1em;margin-top:3px}
+
+/* ============================ PROFILE ============================ */
+.profile-card{background:#fff;border:1px solid var(--line-soft);border-radius:14px;overflow:hidden;flex:1;display:flex;flex-direction:column}
+.profile-cover{height:30mm;background:linear-gradient(135deg,#4b52a7,#646bc2 50%,#ff823c 130%);position:relative}
+.profile-body{padding:0 8mm 6mm;flex:1;display:flex;flex-direction:column}
+.profile-id{display:flex;gap:10px;align-items:flex-end;margin-top:-12mm}
+.profile-pic{width:24mm;height:24mm;border-radius:99px;border:3px solid #fff;background:linear-gradient(135deg,#4b52a7,#ff823c);display:grid;place-items:center;color:#fff;font-weight:700;font-size:32px;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.profile-id h2{font-family:Lexend;font-weight:700;font-size:26px;margin:0;letter-spacing:-0.02em}
+.profile-id .sub-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:3px}
+.profile-id .h-mono{font-size:10px;color:var(--ink-mute);letter-spacing:0.12em}
+.verified{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(--green);background:var(--green-pale);padding:2px 8px;border-radius:99px;font-weight:600}
+.profile-bio{font-size:12px;color:var(--ink-soft);line-height:1.5;margin:5mm 0 0;max-width:160mm}
+
+.profile-stats{display:grid;grid-template-columns:repeat(4,1fr);margin:5mm 0;padding:4mm 0;border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.profile-stats > div{padding:0 4mm;text-align:center}
+.profile-stats > div + div{border-left:1px solid var(--line-soft)}
+.profile-stats .h-display{font-family:Lexend;font-weight:700;font-size:20px;line-height:1.05}
+.profile-stats .h-mono{font-size:9px;color:var(--ink-mute);letter-spacing:0.16em;margin-top:4px;text-transform:uppercase}
+
+.profile-vibes{display:grid;grid-template-columns:1fr 1fr;gap:3mm 8mm;margin-top:3mm}
+.vibe-row .row{display:flex;justify-content:space-between;font-size:11px;font-weight:600}
+.vibe-row .h-mono{font-size:9px;color:var(--ink-mute)}
+.vibe-track{height:5px;background:var(--paper-3);border-radius:99px;overflow:hidden;margin-top:3px}
+.vibe-fill{height:100%;border-radius:99px}
+
+.profile-h3{font-family:Lexend;font-weight:600;font-size:14px;margin:0 0 6px}
+
+.social-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:4mm}
+.social-chip{padding:5px 10px;background:var(--paper-2);border-radius:8px;font-size:10px;font-weight:500}
+.social-chip .icon{font-family:"JetBrains Mono",monospace;font-weight:700;color:var(--indigo);margin-right:4px}
+
+/* ============================ STATS PAGE ============================ */
+.big-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm}
+.big-stat{padding:5mm;border:1px solid var(--line-soft);border-radius:10px;background:#fff}
+.big-stat.indigo{background:linear-gradient(135deg,var(--indigo),#6c73c5);color:#fff;border-color:var(--indigo)}
+.big-stat.orange{background:linear-gradient(135deg,var(--orange),#ff9d65);color:#fff;border-color:var(--orange)}
+.big-stat .h-display{font-family:Lexend;font-weight:700;font-size:30px;line-height:1}
+.big-stat .h-mono{font-size:9px;letter-spacing:0.16em;margin-top:6px;text-transform:uppercase;opacity:0.8}
+
+.heatmap-card{padding:5mm;background:#fff;border:1px solid var(--line-soft);border-radius:10px}
+.heatmap-card .head{display:flex;justify-content:space-between;margin-bottom:4mm}
+.heatmap{display:flex;gap:2px}
+.hm-week{display:flex;flex-direction:column;gap:2px}
+.hm-cell{width:7px;height:7px;border-radius:1px}
+.hm-l0{background:var(--paper-3)}
+.hm-l1{background:rgba(75,82,167,0.25)}
+.hm-l2{background:rgba(75,82,167,0.5)}
+.hm-l3{background:rgba(75,82,167,0.75)}
+.hm-l4{background:var(--indigo)}
+.hm-legend{display:flex;align-items:center;gap:4px;justify-content:flex-end;margin-top:4mm;font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.1em}
+.hm-legend .hm-cell{width:9px;height:9px}
+
+.stats-twoup{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.stats-twoup section{background:#fff;border:1px solid var(--line-soft);border-radius:10px;padding:5mm}
+.weekday-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;height:60mm;align-items:end}
+.wd-col{display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end}
+.wd-bar-wrap{width:18px;height:100%;display:flex;align-items:flex-end}
+.wd-bar{width:100%;background:linear-gradient(180deg,var(--orange),var(--indigo));border-radius:3px 3px 0 0;min-height:2px}
+.wd-label{font-size:10px;font-weight:600;color:var(--ink-soft)}
+.wd-num{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--ink-mute)}
+
+/* ============================ HISTORY ============================ */
+.hist-timeline{position:relative;padding-left:6mm;display:flex;flex-direction:column;gap:1mm;flex:1;overflow:hidden}
+.hist-timeline::before{content:"";position:absolute;left:1mm;top:0;bottom:0;width:1px;background:var(--line-soft)}
+.hist-month{display:flex;justify-content:space-between;padding:4mm 0 2mm;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.18em;color:var(--ink-mute);text-transform:uppercase}
+.hist-row{display:flex;gap:6mm;padding:3mm 4mm;align-items:center;position:relative}
+.hist-row .dot{position:absolute;left:-5mm;width:8px;height:8px;border-radius:99px;background:#fff;border:2px solid var(--indigo)}
+.hist-row .day{min-width:28px;display:flex;flex-direction:column;align-items:center}
+.hist-row .day .h-display{font-family:Lexend;font-weight:700;font-size:14px;line-height:1}
+.hist-row .day .h-mono{font-size:8px;color:var(--ink-mute);letter-spacing:0.14em}
+.hist-row .grow{flex:1}
+.hist-row .room{font-weight:600;font-size:12px}
+.hist-row .meta{font-family:"JetBrains Mono",monospace;font-size:9px;color:var(--ink-mute);letter-spacing:0.1em;margin-top:2px}
+
+/* ============================ APPEARANCE ============================ */
+.app-section{padding:5mm;background:#fff;border:1px solid var(--line-soft);border-radius:10px;margin-bottom:4mm}
+.theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;margin-top:3mm}
+.theme-card{border:2px solid var(--line-soft);border-radius:8px;overflow:hidden}
+.theme-card.active{border-color:var(--indigo)}
+.theme-preview{height:18mm;padding:6px;position:relative}
+.theme-preview .mini{background:#fff;padding:5px;border-radius:3px;box-shadow:0 1px 2px rgba(0,0,0,0.08)}
+.theme-preview .mini .l1{height:3px;width:70%;background:#1b1b1f;border-radius:1px;opacity:.85}
+.theme-preview .mini .l2{height:2px;width:50%;background:#767683;border-radius:1px;margin-top:3px}
+.theme-preview .mini .l3{height:2px;width:60%;background:#767683;border-radius:1px;margin-top:2px}
+.theme-preview .mini .btn{height:6px;width:18px;background:var(--indigo);border-radius:3px;margin-top:4px}
+.theme-card .name{padding:6px 10px}
+.theme-card .name strong{font-size:11px;font-weight:600}
+.theme-card .name span{font-family:"JetBrains Mono",monospace;font-size:8px;color:var(--ink-mute);letter-spacing:0.1em;display:block;margin-top:2px;text-transform:uppercase}
+
+.accent-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:3mm}
+.accent-swatch{display:flex;align-items:center;gap:6px;padding:5px 10px;border-radius:99px;background:var(--paper-2);border:2px solid transparent;font-size:10px;font-weight:500}
+.accent-swatch.active{border-color:var(--ink);background:#fff}
+.accent-color{width:12px;height:12px;border-radius:99px}
+
+.toggle-row{display:flex;justify-content:space-between;padding:4mm;background:var(--paper-2);border-radius:8px;align-items:center;gap:8mm}
+.toggle-row + .toggle-row{margin-top:2mm}
+.toggle-row strong{display:block;font-size:11px;font-weight:600}
+.toggle-row span{font-size:10px;color:var(--ink-mute);margin-top:2px;display:block}
+.tg{width:32px;height:18px;border-radius:99px;background:var(--paper-3);position:relative;flex-shrink:0}
+.tg.on{background:var(--indigo)}
+.tg::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:99px;background:#fff}
+.tg.on::after{left:16px}
+
+/* ============================ PRINT ============================ */
+@media print{
+  @page{size:A4 landscape;margin:0}
+  html,body{background:#fff !important}
+  .page{margin:0;box-shadow:none;page-break-after:always;break-after:page}
+  .page:last-child{page-break-after:auto;break-after:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================ COVER ============================ -->
+<section class="page cover">
+  <div class="pg-frame">
+    <header class="pg-head">
+      <div class="lhs">
+        <div class="wordmark">
+          <svg class="wordmark-mark" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 20 L12 4 L21 20 Z"/><path d="M7.5 16.5 L16.5 16.5"/><path d="M10 12 L14 12"/><circle cx="12" cy="20" r="1.6" fill="#fff"/></svg>
+          <span style="color:#fff">Reservity</span>
+        </div>
+        <span class="h-mono pg-num">PRODUCT BOOKLET · 01</span>
+      </div>
+      <span class="h-mono pg-num">EDITION I · MAY 2026</span>
+    </header>
+
+    <div class="lead">
+      <span class="h-mono" style="font-size:11px;letter-spacing:0.24em;color:rgba(255,255,255,0.85)">ROOMS, CLAIMED.</span>
+      <h1 style="margin-top:18px">Find a quiet<br>room. <em>Make it<br>yours for an hour.</em></h1>
+      <p class="deck">Reservity is a campus booking app for students and space hosts — pods, labs, studios, all on one map. Live availability, weekly grid, single-tap pass.</p>
+    </div>
+
+    <div class="cover-meta">
+      <div><span class="h-mono">SCOPE</span><strong>Campus &amp; building partners</strong></div>
+      <div><span class="h-mono">ROLE</span><strong>Student · Host</strong></div>
+      <div><span class="h-mono">PILOT</span><strong>Hawthorn Campus, 38 spaces</strong></div>
+    </div>
+
+    <footer class="pg-foot"><span>RESERVITY · DESIGN PREVIEW</span><span>EDITION I · 01 / 07</span></footer>
+  </div>
+
+  <!-- background isometric flourish -->
+  <svg class="bg-iso" width="320" height="320" viewBox="0 0 320 320" aria-hidden="true">
+    <g fill="none" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 200 L160 130 L280 200 L160 270 Z"/>
+      <path d="M40 200 L40 110 L160 40 L160 130"/>
+      <path d="M160 130 L160 40 L280 110 L280 200"/>
+      <path d="M100 165 L180 120 L240 150 L160 195 Z"/>
+      <path d="M120 100 L160 78 L160 60 L120 80 Z"/>
+    </g>
+  </svg>
+</section>
+
+
+<!-- ============================ HOME / LANDING ============================ -->
+<section class="page archgrid">
+  <div class="pg-frame">
+    <header class="pg-head">
+      <div class="lhs">
+        <div class="wordmark">
+          <svg class="wordmark-mark" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 20 L12 4 L21 20 Z"/><path d="M7.5 16.5 L16.5 16.5"/><path d="M10 12 L14 12"/><circle cx="12" cy="20" r="1.6" fill="var(--ink)"/></svg>
+          <span>Reservity</span>
+        </div>
+        <span class="kicker">Home · Landing</span>
+      </div>
+      <span class="h-mono pg-num">02 / 07</span>
+    </header>
+
+    <div class="hero-head">
+      <h1>A room<br>for the way you<br><em>actually work.</em></h1>
+      <div>
+        <div class="kicker" style="font-size:10px">FAKEBAR — TAP TO BOOK</div>
+        <div class="fakebar" style="margin-top:8px">
+          <div class="seg">📍 Hawthorn</div>
+          <div class="seg">Today · 4–6pm</div>
+          <div class="seg">2 people</div>
+          <span class="pill pill-now"><span class="dot" style="background:var(--green);width:5px;height:5px;border-radius:99px;display:inline-block"></span>14 free now</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink-soft);margin:8px 0 0;line-height:1.4">From windowed pods to chemistry labs — every space on campus, with live schedules and a single weekly grid.</p>
+      </div>
+    </div>
+
+    <div class="kicker" style="margin-top:6mm">FREE NOW · NEAR YOU</div>
+    <div class="now-grid">
+      <div class="now-card">
+        <div class="row"><span class="pill pill-now">● Open now</span><span class="h-mono" style="font-size:10px;color:var(--ink-mute)">$8/HR</span></div>
+        <div class="room-name">Coding Pod 3</div>
+        <div class="room-meta">LINDEN HALL · FLOOR 2 · 8M² · 2 SEATS</div>
+        <div class="mini-plan">
+          <svg width="100%" height="100%" viewBox="0 0 120 42" preserveAspectRatio="none"><rect x="3" y="3" width="114" height="36" fill="#fff" stroke="#4b52a7" stroke-width="1.2"/><rect x="20" y="14" width="40" height="18" fill="none" stroke="#4b52a7" stroke-width="1"/><circle cx="80" cy="22" r="4" fill="none" stroke="#ff823c" stroke-width="1.2"/><circle cx="92" cy="22" r="4" fill="none" stroke="#ff823c" stroke-width="1.2"/></svg>
+        </div>
+      </div>
+      <div class="now-card">
+        <div class="row"><span class="pill pill-now">● Open now</span><span class="h-mono" style="font-size:10px;color:var(--ink-mute)">FREE</span></div>
+        <div class="room-name">Atrium Reading Nook</div>
+        <div class="room-meta">CARROLL · GROUND · 18M² · 6 SEATS</div>
+        <div class="mini-plan">
+          <svg width="100%" height="100%" viewBox="0 0 120 42" preserveAspectRatio="none"><rect x="3" y="3" width="114" height="36" fill="#fff" stroke="#4b52a7" stroke-width="1.2"/><circle cx="36" cy="22" r="6" fill="none" stroke="#ff823c" stroke-width="1"/><circle cx="60" cy="22" r="6" fill="none" stroke="#ff823c" stroke-width="1"/><circle cx="84" cy="22" r="6" fill="none" stroke="#ff823c" stroke-width="1"/></svg>
+        </div>
+      </div>
+      <div class="now-card">
+        <div class="row"><span class="pill pill-soon">In 30 min</span><span class="h-mono" style="font-size:10px;color:var(--ink-mute)">$24/HR</span></div>
+        <div class="room-name">Studio Grand</div>
+        <div class="room-meta">RAY ARTS · FLOOR 3 · 64M² · 12 SEATS</div>
+        <div class="mini-plan">
+          <svg width="100%" height="100%" viewBox="0 0 120 42" preserveAspectRatio="none"><rect x="3" y="3" width="114" height="36" fill="#fff" stroke="#4b52a7" stroke-width="1.2"/><path d="M20 8 L20 36 M40 8 L40 36 M60 8 L60 36 M80 8 L80 36 M100 8 L100 36" stroke="#4b52a7" stroke-width="0.8" opacity="0.4"/><rect x="50" y="16" width="20" height="10" fill="none" stroke="#ff823c" stroke-width="1"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="cats-strip">
+      <div class="cat"><span class="h-mono">CODING PODS</span><strong>14</strong><span>1–2 seats · windowed · power · whiteboard</span></div>
+      <div class="cat"><span class="h-mono">LABS</span><strong>9</strong><span>chemistry · biology · physics — booked w/ host</span></div>
+      <div class="cat"><span class="h-mono">STUDIOS</span><strong>6</strong><span>recording · darkroom · crit room · large</span></div>
+      <div class="cat"><span class="h-mono">DROP-IN</span><strong>9</strong><span>no booking · just walk in · live capacity</span></div>
+    </div>
+
+    <footer class="pg-foot"><span>HOME · WHAT'S OPEN, RIGHT NOW</span><span>02 / 07</span></footer>
+  </div>
+</section>
+
+
+<!-- ============================ SPACES (LISTING) ============================ -->
+<section class="page archgrid">
+  <div class="pg-frame">
+    <header class="pg-head">
+      <div class="lhs">
+        <div class="wordmark">
+          <svg class="wordmark-mark" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 20 L12 4 L21 20 Z"/><path d="M7.5 16.5 L16.5 16.5"/><path d="M10 12 L14 12"/><circle cx="12" cy="20" r="1.6" fill="var(--ink)"/></svg>
+          <span>Reservity</span>
+        </div>
+        <span class="kicker">Spaces · Browse</span>
+      </div>
+      <span class="h-mono pg-num">03 / 07</span>
+    </header>
+
+    <h1 class="acct-h1" style="margin-bottom:2mm">Browse 38 spaces.</h1>
+    <p style="margin:0 0 5mm;color:var(--ink-soft);font-size:13px">Filter by date, building, capacity, vibe. Each card shows live availability for the selected day.</p>
+
+    <div class="lst-wrap">
+      <div class="lst-list">
+
+        <div class="lst-card">
+          <svg width="80" height="50" viewBox="0 0 80 50"><rect x="2" y="2" width="76" height="46" fill="#fbf8fe" stroke="#4b52a7" stroke-width="1.2"/><rect x="14" y="14" width="32" height="22" fill="none" stroke="#4b52a7" stroke-width="1"/><circle cx="58" cy="25" r="4" fill="none" stroke="#ff823c"/><circle cx="68" cy="25" r="4" fill="none" stroke="#ff823c"/></svg>
+          <div>
+            <div class="row" style="display:flex;align-items:center;gap:8px"><h2 class="name">Coding Pod 3</h2><span class="pill pill-now">● Now</span></div>
+            <div class="meta">LINDEN HALL · FLOOR 2 · 8M² · 2 SEATS</div>
+            <p class="blurb">Windowed two-person nook with monitor arms, fast wifi, kettle. Maya's most-booked.</p>
+          </div>
+          <div class="priceblock">
+            <div class="h-display">$8</div>
+            <div class="label">PER HOUR</div>
+          </div>
+        </div>
+
+        <div class="lst-card">
+          <svg width="80" height="50" viewBox="0 0 80 50"><rect x="2" y="2" width="76" height="46" fill="#fbf8fe" stroke="#4b52a7" stroke-width="1.2"/><path d="M14 14h52v22h-52z" fill="none" stroke="#4b52a7" stroke-width="1"/><path d="M14 22h52M14 28h52M22 14v22M40 14v22M58 14v22" stroke="#ff823c" stroke-width="0.8"/></svg>
+          <div>
+            <div class="row" style="display:flex;align-items:center;gap:8px"><h2 class="name">Chemistry Lab 4B</h2><span class="pill pill-soon">In 1h</span></div>
+            <div class="meta">SCIENCE A · FLOOR 4 · 56M² · 16 SEATS</div>
+            <p class="blurb">Wet lab with eight benches, fume hood. Booked through Prof. Lin.</p>
+          </div>
+          <div class="priceblock">
+            <div class="h-display">$32</div>
+            <div class="label">PER HOUR</div>
+          </div>
+        </div>
+
+        <div class="lst-card">
+          <svg width="80" height="50" viewBox="0 0 80 50"><rect x="2" y="2" width="76" height="46" fill="#fbf8fe" stroke="#4b52a7" stroke-width="1.2"/><path d="M14 14h52v22h-52z" fill="none" stroke="#4b52a7" stroke-width="1"/><circle cx="40" cy="25" r="6" fill="none" stroke="#ff823c"/><path d="M30 14L50 36M50 14L30 36" stroke="#ff823c" stroke-width="0.6" opacity="0.5"/></svg>
+          <div>
+            <div class="row" style="display:flex;align-items:center;gap:8px"><h2 class="name">Studio Grand</h2><span class="pill pill-booked">Booked till 4pm</span></div>
+            <div class="meta">RAY ARTS · FLOOR 3 · 64M² · 12 SEATS</div>
+            <p class="blurb">Sprung floor, mirrored wall. Recording-grade silence, north light.</p>
+          </div>
+          <div class="priceblock">
+            <div class="h-display">$24</div>
+            <div class="label">PER HOUR</div>
+          </div>
+        </div>
+
+        <div class="lst-card">
+          <svg width="80" height="50" viewBox="0 0 80 50"><rect x="2" y="2" width="76" height="46" fill="#fbf8fe" stroke="#4b52a7" stroke-width="1.2"/><circle cx="22" cy="25" r="5" fill="none" stroke="#ff823c"/><circle cx="40" cy="25" r="5" fill="none" stroke="#ff823c"/><circle cx="58" cy="25" r="5" fill="none" stroke="#ff823c"/></svg>
+          <div>
+            <div class="row" style="display:flex;align-items:center;gap:8px"><h2 class="name">Atrium Reading Nook</h2><span class="pill pill-now">● Now</span></div>
+            <div class="meta">CARROLL · GROUND · 18M² · 6 SEATS</div>
+            <p class="blurb">Skylit drop-in space with three armchairs and a long table. No booking required.</p>
+          </div>
+          <div class="priceblock">
+            <div class="h-display">Free</div>
+            <div class="label">DROP-IN</div>
+          </div>
+        </div>
+
+        <div class="lst-card">
+          <svg width="80" height="50" viewBox="0 0 80 50"><rect x="2" y="2" width="76" height="46" fill="#fbf8fe" stroke="#4b52a7" stroke-width="1.2"/><rect x="10" y="10" width="20" height="30" fill="none" stroke="#4b52a7"/><rect x="34" y="10" width="36" height="30" fill="none" stroke="#4b52a7"/><circle cx="52" cy="25" r="6" fill="none" stroke="#ff823c"/></svg>
+          <div>
+            <div class="row" style="display:flex;align-items:center;gap:8px"><h2 class="name">Crit Room</h2><span class="pill pill-now">● Now</span></div>
+            <div class="meta">RAY ARTS · FLOOR 1 · 28M² · 8 SEATS</div>
+            <p class="blurb">Pin-up walls, dimmable track lighting. Used for studio crits and small reviews.</p>
+          </div>
+          <div class="priceblock">
+            <div class="h-display">$14</div>
+            <div class="label">PER HOUR</div>
+          </div>
+        </div>
+
+      </div>
+
+      <aside class="lst-detail">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:3mm">
+          <div>
+            <span class="kicker" style="font-size:9px">Selected · Coding Pod 3</span>
+            <h3>Today's schedule</h3>
+            <p style="font-size:11px;color:var(--ink-mute);margin:3px 0 0">Tue, May 5 · 8am–10pm</p>
+          </div>
+          <span class="pill pill-now">● Open now</span>
+        </div>
+
+        <div style="display:flex;flex-direction:column;flex:1;overflow:hidden">
+          <div class="sched-row"><span class="hour">8am</span><div class="sched-bar"></div></div>
+          <div class="sched-row"><span class="hour">9am</span><div class="sched-bar"></div></div>
+          <div class="sched-row"><span class="hour">10am</span><div class="sched-bar busy"><span class="lbl">Reading group · J. Park</span></div></div>
+          <div class="sched-row"><span class="hour">11am</span><div class="sched-bar busy"></div></div>
+          <div class="sched-row"><span class="hour">12pm</span><div class="sched-bar"></div></div>
+          <div class="sched-row"><span class="hour">1pm</span><div class="sched-bar"></div></div>
+          <div class="sched-row"><span class="hour">2pm</span><div class="sched-bar busy"><span class="lbl">Solo focus · M. Reyes</span></div></div>
+          <div class="sched-row"><span class="hour">3pm</span><div class="sched-bar busy"></div></div>
+          <div class="sched-row"><span class="hour">4pm</span><div class="sched-bar" style="background:var(--indigo)"><span class="lbl" style="color:#fff">Tap to book →</span></div></div>
+          <div class="sched-row"><span class="hour">5pm</span><div class="sched-bar"></div></div>
+          <div class="sched-row"><span class="hour">6pm</span><div class="sched-bar"></div></div>
+          <div class="sched-row"><span class="hour">7pm</span><div class="sched-bar busy"><span class="lbl">Late session · K. Tran</span></div></div>
+          <div class="sched-row"><span class="hour">8pm</span><div class="sched-bar busy"></div></div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="pg-foot"><span>SPACES · BROWSE &amp; SCHEDULE</span><span>03 / 07</span></footer>
+  </div>
+</section>
+
+
+<!-- ============================ PASS ============================ -->
+<section class="page pass-page">
+  <div class="pg-frame">
+    <header class="pg-head">
+      <div class="lhs">
+        <div class="wordmark">
+          <svg class="wordmark-mark" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 20 L12 4 L21 20 Z"/><path d="M7.5 16.5 L16.5 16.5"/><path d="M10 12 L14 12"/><circle cx="12" cy="20" r="1.6" fill="var(--ink)"/></svg>
+          <span>Reservity</span>
+        </div>
+        <span class="kicker">Booking · Pass</span>
+      </div>
+      <span class="h-mono pg-num">04 / 07</span>
+    </header>
+
+    <div class="pass-grid">
+      <article class="pass">
+        <div class="pass-head">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 20 L12 4 L21 20 Z"/><path d="M7.5 16.5 L16.5 16.5"/><path d="M10 12 L14 12"/><circle cx="12" cy="20" r="1.6" fill="#fff"/></svg>
+          <span class="h-mono" style="font-size:9px;letter-spacing:0.2em">RESERVITY · PASS</span>
+        </div>
+
+        <div class="pass-body">
+          <span class="h-mono">TUESDAY · MAY 5</span>
+          <h2>Coding Pod<br><em>Three</em></h2>
+          <p class="pass-blurb">Windowed two-person nook with monitor arms, fast wifi, kettle.</p>
+        </div>
+
+        <div class="pass-iso">
+          <svg viewBox="0 0 360 200" style="width:100%;height:auto" aria-hidden="true">
+            <g fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.95">
+              <path d="M70 140 L180 90 L290 140 L180 190 Z"/>
+              <path d="M70 140 L70 70 L180 20 L180 90 Z"/>
+              <path d="M180 90 L180 20 L290 70 L290 140 Z"/>
+              <path d="M130 110 L200 80 L250 100 L180 130 Z"/>
+              <path d="M170 90 L210 70 L210 50 L170 70 Z"/>
+            </g>
+            <text x="20" y="190" font-family="JetBrains Mono" font-size="9" fill="#fff" letter-spacing="0.18em" opacity="0.8">8M² · 2 SEATS</text>
+            <text x="340" y="190" font-family="JetBrains Mono" font-size="9" fill="#fff" letter-spacing="0.18em" opacity="0.8" text-anchor="end">FLOOR 2</text>
+          </svg>
+        </div>
+
+        <div class="pass-perf"></div>
+
+        <div class="pass-foot">
+          <div>
+            <div class="h-mono">WHEN</div>
+            <div class="when">4pm — 6pm</div>
+            <div class="h-mono">WHO</div>
+            <div class="who">Maya R. · maya@university.edu</div>
+            <div class="h-mono" style="margin-top:6px;opacity:0.7">RV-PD3-7142</div>
+          </div>
+          <div class="qrbox">
+            <div></div><div></div><div></div><div class="off"></div><div></div><div></div><div></div>
+            <div></div><div class="off"></div><div></div><div class="off"></div><div></div><div class="off"></div><div></div>
+            <div></div><div></div><div></div><div></div><div class="off"></div><div></div><div></div>
+            <div class="off"></div><div></div><div class="off"></div><div></div><div></div><div class="off"></div><div class="off"></div>
+            <div></div><div></div><div></div><div class="off"></div><div></div><div></div><div></div>
+            <div></div><div class="off"></div><div></div><div></div><div></div><div class="off"></div><div></div>
+            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+          </div>
+        </div>
+      </article>
+
+      <div class="pass-info">
+        <span class="kicker">YOU'RE IN</span>
+        <h2>Pass saved.</h2>
+        <p class="lead">Find this in your dashboard. Show the QR at the door — or just walk in, your face is already on the list. Long-press to save the pass to Photos at 1080×1920. It's screenshot-shaped on purpose.</p>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <span class="h-mono">SHARE</span>
+            <strong>Pass link copied</strong>
+            <span>Anyone with the link sees the pass and the building entrance — but can't transfer it.</span>
+          </div>
+          <div class="info-card">
+            <span class="h-mono">CANCEL UP TO</span>
+            <strong>1 hour before</strong>
+            <span>No-shows past three in a semester pause your booking access for 7 days.</span>
+          </div>
+          <div class="info-card">
+            <span class="h-mono">REPEAT</span>
+            <strong>Make weekly</strong>
+            <span>One tap turns this into a recurring slot through the end of term.</span>
+          </div>
+          <div class="info-card">
+            <span class="h-mono">PASS DESIGN</span>
+            <strong>Studio pass · v3</strong>
+            <span>1080×1920 portrait. Saves to Photos. Light-on-dark contrast tested for low-light entry.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="pg-foot"><span>BOOKING · PASS</span><span>04 / 07</span></footer>
+  </div>
+</section>
+
+
+<!-- ============================ DASHBOARD: BOOKINGS ============================ -->
+<section class="page archgrid">
+  <div class="pg-frame">
+    <header class="pg-head">
+      <div class="lhs">
+        <div class="wordmark">
+          <svg class="wordmark-mark" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 20 L12 4 L21 20 Z"/><path d="M7.5 16.5 L16.5 16.5"/><path d="M10 12 L14 12"/><circle cx="12" cy="20" r="1.6" fill="var(--ink)"/></svg>
+          <span>Reservity</span>
+        </div>
+        <span class="kicker">Dashboard · Bookings</span>
+      </div>
+      <span class="h-mono pg-num">05 / 07</span>
+    </header>
+
+    <div class="acct-cols">
+      <aside class="acct-side">
+        <div class="who">
+          <div class="av">M</div>
+          <div><strong>Maya Reyes</strong><span>@MAYAREYES</span></div>
+        </div>
+        <div class="nav-item active">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+          <div><div class="si-label">Bookings</div><div class="si-sub">What's next</div></div>
+        </div>
+        <div class="nav-item"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg><div><div class="si-label">Profile</div><div class="si-sub">How others see you</div></div></div>
+        <div class="nav-item"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="4" rx="1"/><path d="M5 8v12h14V8"/><line x1="10" y1="13" x2="14" y2="13"/></svg><div><div class="si-label">History</div><div class="si-sub">Where you've been</div></div></div>
+        <div class="nav-item"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="18" y1="20" x2="18" y2="14"/></svg><div><div class="si-label">Stats</div><div class="si-sub">The numbers</div></div></div>
+        <div class="nav-sep">SETTINGS</div>
+        <div class="nav-item"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="4"/><path d="M11 14h11l-3 3m3-3l-3-3"/></svg><div><div class="si-label">Authentication</div><div class="si-sub">Email, password, 2FA</div></div></div>
+        <div class="nav-item"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6m0 6v6M3 12h6m6 0h6"/></svg><div><div class="si-label">Appearance</div><div class="si-sub">Theme, accent</div></div></div>
+      </aside>
+
+      <div class="acct-main">
+        <div>
+          <span class="kicker">Hello, Maya</span>
+          <h1 class="acct-h1">Upcoming</h1>
+          <p style="font-size:13px;color:var(--ink-soft);margin:3px 0 0">4 bookings on the calendar.</p>
+        </div>
+
+        <div class="checkin">
+          <span class="dot"></span>
+          <div class="grow" style="flex:1">
+            <div class="h-mono">STARTS IN 47 MIN</div>
+            <h3>Coding Pod 3</h3>
+            <div class="meta">Linden Hall · Floor 2</div>
+          </div>
+          <span class="pill" style="background:var(--orange);color:#fff;padding:6px 12px">Open pass →</span>
+        </div>
+
+        <div class="acct-stats">
+          <div class="s"><div class="h-display">4</div><div class="unit">upcoming</div><div class="sub">THIS WEEK</div></div>
+          <div class="s"><div class="h-display" style="color:var(--ink)">10h</div><div class="unit">reserved</div><div class="sub">TOTAL TIME</div></div>
+          <div class="s"><div class="h-display" style="color:var(--ink)">3</div><div class="unit">spaces</div><div class="sub">ACROSS BOOKINGS</div></div>
+        </div>
+
+        <div class="upcoming-list">
+          <div class="upcoming-row">
+            <div class="date"><span class="h-mono">MAY</span><span class="day">5</span><span class="h-mono">TUE</span></div>
+            <div class="bar"></div>
+            <div class="grow"><div class="room">Coding Pod 3</div><div class="meta">4PM — 6PM · LINDEN HALL</div></div>
+            <span class="pill pill-indigo">Solo focus</span>
+          </div>
+          <div class="upcoming-row">
+            <div class="date"><span class="h-mono">MAY</span><span class="day">7</span><span class="h-mono">THU</span></div>
+            <div class="bar"></div>
+            <div class="grow"><div class="room">Chemistry Lab 4B</div><div class="meta">10AM — 12PM · SCIENCE A</div></div>
+            <span class="pill pill-indigo">Group session</span>
+          </div>
+          <div class="upcoming-row">
+            <div class="date"><span class="h-mono">MAY</span><span class="day">9</span><span class="h-mono">SAT</span></div>
+            <div class="bar" style="background:var(--orange)"></div>
+            <div class="grow"><div class="room">Studio Grand</div><div class="meta">2PM — 4PM · RAY ARTS</div></div>
+            <span class="pill" style="background:var(--orange-pale);color:var(--orange-deep)">↻ Recurring</span>
+          </div>
+          <div class="upcoming-row">
+            <div class="date"><span class="h-mono">MAY</span><span class="day">12</span><span class="h-mono">TUE</span></div>
+            <div class="bar"></div>
+            <div class="grow"><div class="room">Coding Pod 3</div><div class="meta">4PM — 6PM · LINDEN HALL</div></div>
+            <span class="pill" style="background:var(--orange-pale);color:var(--orange-deep)">↻ Recurring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="pg-foot"><span>DASHBOARD · BOOKINGS</span><span>05 / 07</span></footer>
+  </div>
+</section>
+
+
+<!-- ============================ DASHBOARD: PROFILE ============================ -->
+<section class="page archgrid">
+  <div class="pg-frame">
+    <header class="pg-head">
+      <div class="lhs">
+        <div class="wordmark">
+          <svg class="wordmark-mark" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 20 L12 4 L21 20 Z"/><path d="M7.5 16.5 L16.5 16.5"/><path d="M10 12 L14 12"/><circle cx="12" cy="20" r="1.6" fill="var(--ink)"/></svg>
+          <span>Reservity</span>
+        </div>
+        <span class="kicker">Dashboard · Profile</span>
+      </div>
+      <span class="h-mono pg-num">06 / 07</span>
+    </header>
+
+    <h1 class="acct-h1" style="margin-bottom:2mm">How others see you.</h1>
+    <p style="margin:0 0 5mm;color:var(--ink-soft);font-size:13px">Renters and space hosts see this when they look you up. Verified students get a green tick.</p>
+
+    <article class="profile-card">
+      <div class="profile-cover">
+        <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.18" aria-hidden="true">
+          <defs><pattern id="prof-grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M 32 0 L 0 0 0 32" fill="none" stroke="#fff" stroke-width="1"/></pattern></defs>
+          <rect width="100%" height="100%" fill="url(#prof-grid)"/>
+        </svg>
+      </div>
+      <div class="profile-body">
+        <div class="profile-id">
+          <div class="profile-pic">MR</div>
+          <div style="flex:1;padding-bottom:4px">
+            <h2>Maya Reyes</h2>
+            <div class="sub-row">
+              <span class="h-mono">@MAYAREYES</span>
+              <span style="color:var(--ink-mute)">·</span>
+              <span style="font-size:11px;color:var(--ink-soft)">Maya Asuncion Reyes</span>
+              <span class="verified">
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l3 3 7-7"/></svg>
+                Verified student
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <p class="profile-bio">Cog sci &amp; studio practice. I book the same coding pod every Tuesday and pretend it's mine. Currently writing a thesis about how rooms shape thinking.</p>
+
+        <div class="profile-stats">
+          <div><div class="h-display">36</div><div class="h-mono">BOOKINGS</div></div>
+          <div><div class="h-display">94h</div><div class="h-mono">HOURS HOSTED</div></div>
+          <div><div class="h-display">Sep '24</div><div class="h-mono">MEMBER SINCE</div></div>
+          <div><div class="h-display">12</div><div class="h-mono">SPACES TRIED</div></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8mm;flex:1;min-height:0">
+          <div>
+            <h3 class="profile-h3">Vibe profile</h3>
+            <p style="font-size:10px;color:var(--ink-mute);margin:0 0 4mm">Based on the last 30 bookings — what Maya usually goes for.</p>
+            <div class="profile-vibes" style="grid-template-columns:1fr">
+              <div class="vibe-row"><div class="row"><span>◐ Focus mode</span><span class="h-mono">78%</span></div><div class="vibe-track"><div class="vibe-fill" style="width:78%;background:var(--orange)"></div></div></div>
+              <div class="vibe-row"><div class="row"><span>· Solo</span><span class="h-mono">64%</span></div><div class="vibe-track"><div class="vibe-fill" style="width:64%;background:var(--orange)"></div></div></div>
+              <div class="vibe-row"><div class="row"><span>▢ Window seat</span><span class="h-mono">52%</span></div><div class="vibe-track"><div class="vibe-fill" style="width:52%;background:var(--indigo)"></div></div></div>
+              <div class="vibe-row"><div class="row"><span>◑ After hours</span><span class="h-mono">41%</span></div><div class="vibe-track"><div class="vibe-fill" style="width:41%;background:var(--indigo)"></div></div></div>
+              <div class="vibe-row"><div class="row"><span>☼ Natural light</span><span class="h-mono">34%</span></div><div class="vibe-track"><div class="vibe-fill" style="width:34%;background:var(--indigo)"></div></div></div>
+              <div class="vibe-row"><div class="row"><span>◊ Group of 4+</span><span class="h-mono">18%</span></div><div class="vibe-track"><div class="vibe-fill" style="width:18%;background:var(--indigo)"></div></div></div>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="profile-h3">Socials</h3>
+            <div class="social-row" style="margin-top:0">
+              <span class="social-chip"><span class="icon">◐</span>mayareyes.studio</span>
+              <span class="social-chip"><span class="icon">&lt;&gt;</span>github.com/mayareyes</span>
+              <span class="social-chip"><span class="icon">▢</span>@maya.builds</span>
+              <span class="social-chip"><span class="icon">⌬</span>CogLab member</span>
+            </div>
+
+            <h3 class="profile-h3" style="margin-top:8mm">Stats this year</h3>
+            <div class="big-stats" style="grid-template-columns:1fr 1fr;gap:3mm">
+              <div class="big-stat indigo"><div class="h-display">36</div><div class="h-mono">BOOKINGS</div></div>
+              <div class="big-stat orange"><div class="h-display">94h</div><div class="h-mono">HOURS</div></div>
+            </div>
+
+            <h3 class="profile-h3" style="margin-top:8mm">Booking heatmap</h3>
+            <div class="heatmap" style="margin-top:3mm" id="profile-heatmap"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <footer class="pg-foot"><span>DASHBOARD · PROFILE</span><span>06 / 07</span></footer>
+  </div>
+</section>
+
+
+<!-- ============================ DASHBOARD: STATS / APPEARANCE ============================ -->
+<section class="page archgrid">
+  <div class="pg-frame">
+    <header class="pg-head">
+      <div class="lhs">
+        <div class="wordmark">
+          <svg class="wordmark-mark" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M3 20 L12 4 L21 20 Z"/><path d="M7.5 16.5 L16.5 16.5"/><path d="M10 12 L14 12"/><circle cx="12" cy="20" r="1.6" fill="var(--ink)"/></svg>
+          <span>Reservity</span>
+        </div>
+        <span class="kicker">Dashboard · Stats &amp; Appearance</span>
+      </div>
+      <span class="h-mono pg-num">07 / 07</span>
+    </header>
+
+    <h1 class="acct-h1" style="margin-bottom:2mm">Your year on Reservity.</h1>
+
+    <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:6mm;flex:1;min-height:0">
+      <div style="display:flex;flex-direction:column;gap:4mm;min-height:0">
+        <div class="big-stats">
+          <div class="big-stat"><div class="h-display" style="color:var(--ink)">36</div><div class="h-mono" style="color:var(--ink-mute)">BOOKINGS THIS YEAR</div></div>
+          <div class="big-stat indigo"><div class="h-display">94h</div><div class="h-mono">HOURS RESERVED</div></div>
+          <div class="big-stat"><div class="h-display" style="color:var(--ink)">12</div><div class="h-mono" style="color:var(--ink-mute)">DISTINCT SPACES</div></div>
+          <div class="big-stat orange"><div class="h-display">$216</div><div class="h-mono">SAVED VS CAFES</div></div>
+        </div>
+
+        <div class="heatmap-card">
+          <div class="head">
+            <h3 class="profile-h3" style="margin:0">Booking heatmap</h3>
+            <span class="h-mono" style="font-size:10px;color:var(--ink-mute);letter-spacing:0.12em">LAST 12 MONTHS</span>
+          </div>
+          <div class="heatmap" id="main-heatmap"></div>
+          <div class="hm-legend"><span>LESS</span><div class="hm-cell hm-l0"></div><div class="hm-cell hm-l1"></div><div class="hm-cell hm-l2"></div><div class="hm-cell hm-l3"></div><div class="hm-cell hm-l4"></div><span>MORE</span></div>
+        </div>
+
+        <div class="stats-twoup" style="grid-template-columns:1fr 1fr">
+          <section>
+            <h3 class="profile-h3">Where you spend hours</h3>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div><div class="row" style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:500">Coding Pod 3</span><span class="h-mono" style="font-size:9px;color:var(--ink-mute)">28h</span></div><div class="vibe-track"><div class="vibe-fill" style="width:100%;background:var(--indigo)"></div></div></div>
+              <div><div class="row" style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:500">Studio Grand</span><span class="h-mono" style="font-size:9px;color:var(--ink-mute)">14h</span></div><div class="vibe-track"><div class="vibe-fill" style="width:50%;background:var(--indigo)"></div></div></div>
+              <div><div class="row" style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:500">Chemistry Lab 4B</span><span class="h-mono" style="font-size:9px;color:var(--ink-mute)">12h</span></div><div class="vibe-track"><div class="vibe-fill" style="width:43%;background:var(--indigo)"></div></div></div>
+              <div><div class="row" style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:500">Crit Room</span><span class="h-mono" style="font-size:9px;color:var(--ink-mute)">10h</span></div><div class="vibe-track"><div class="vibe-fill" style="width:36%;background:var(--indigo)"></div></div></div>
+              <div><div class="row" style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:500">Coding Pod 7</span><span class="h-mono" style="font-size:9px;color:var(--ink-mute)">8h</span></div><div class="vibe-track"><div class="vibe-fill" style="width:29%;background:var(--indigo)"></div></div></div>
+              <div><div class="row" style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:500">Atrium</span><span class="h-mono" style="font-size:9px;color:var(--ink-mute)">6h</span></div><div class="vibe-track"><div class="vibe-fill" style="width:21%;background:var(--indigo)"></div></div></div>
+            </div>
+          </section>
+          <section>
+            <h3 class="profile-h3">By day of week</h3>
+            <div class="weekday-bars">
+              <div class="wd-col"><div class="wd-bar-wrap"><div class="wd-bar" style="height:25%"></div></div><span class="wd-label">S</span><span class="wd-num">3h</span></div>
+              <div class="wd-col"><div class="wd-bar-wrap"><div class="wd-bar" style="height:60%"></div></div><span class="wd-label">M</span><span class="wd-num">12h</span></div>
+              <div class="wd-col"><div class="wd-bar-wrap"><div class="wd-bar" style="height:100%"></div></div><span class="wd-label">T</span><span class="wd-num">22h</span></div>
+              <div class="wd-col"><div class="wd-bar-wrap"><div class="wd-bar" style="height:50%"></div></div><span class="wd-label">W</span><span class="wd-num">10h</span></div>
+              <div class="wd-col"><div class="wd-bar-wrap"><div class="wd-bar" style="height:80%"></div></div><span class="wd-label">T</span><span class="wd-num">18h</span></div>
+              <div class="wd-col"><div class="wd-bar-wrap"><div class="wd-bar" style="height:65%"></div></div><span class="wd-label">F</span><span class="wd-num">14h</span></div>
+              <div class="wd-col"><div class="wd-bar-wrap"><div class="wd-bar" style="height:35%"></div></div><span class="wd-label">S</span><span class="wd-num">7h</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:3mm;min-height:0">
+        <div class="app-section" style="margin:0">
+          <h3 class="profile-h3" style="margin:0 0 2mm">Theme</h3>
+          <p style="font-size:10px;color:var(--ink-mute);margin:0">Light is the default. Dark is gentler at night.</p>
+          <div class="theme-grid">
+            <div class="theme-card active">
+              <div class="theme-preview" style="background:#fbf8fe"><div class="mini"><div class="l1"></div><div class="l2"></div><div class="l3"></div><div class="btn"></div></div></div>
+              <div class="name"><strong>Light</strong><span>LAVENDER PAPER</span></div>
+            </div>
+            <div class="theme-card">
+              <div class="theme-preview" style="background:#1a1b29"><div class="mini" style="background:#252739"><div class="l1" style="background:#f3f0f5"></div><div class="l2" style="background:#7d7e94"></div><div class="l3" style="background:#7d7e94"></div><div class="btn" style="background:#bec2ff"></div></div></div>
+              <div class="name"><strong>Dark</strong><span>INDIGO MIDNIGHT</span></div>
+            </div>
+            <div class="theme-card">
+              <div class="theme-preview" style="background:#f3eddd"><div class="mini" style="background:#fbf6e8"><div class="l1" style="background:#2e261a"></div><div class="l2" style="background:#857a5e"></div><div class="l3" style="background:#857a5e"></div><div class="btn" style="background:#a85c2c"></div></div></div>
+              <div class="name"><strong>Sepia</strong><span>OLD LIBRARY WARMTH</span></div>
+            </div>
+            <div class="theme-card">
+              <div class="theme-preview" style="background:linear-gradient(90deg,#fbf8fe 50%,#1a1b29 50%)"><div class="mini" style="background:rgba(255,255,255,0.85)"><div class="l1"></div><div class="l2"></div><div class="l3"></div><div class="btn"></div></div></div>
+              <div class="name"><strong>Auto</strong><span>FOLLOW SYSTEM</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="app-section" style="margin:0">
+          <h3 class="profile-h3" style="margin:0 0 2mm">Accent color</h3>
+          <div class="accent-row">
+            <div class="accent-swatch active"><span class="accent-color" style="background:#4b52a7"></span>Indigo</div>
+            <div class="accent-swatch"><span class="accent-color" style="background:#7c3a8c"></span>Plum</div>
+            <div class="accent-swatch"><span class="accent-color" style="background:#2f6b3a"></span>Forest</div>
+            <div class="accent-swatch"><span class="accent-color" style="background:#a0461c"></span>Rust</div>
+            <div class="accent-swatch"><span class="accent-color" style="background:#3d4350"></span>Slate</div>
+          </div>
+        </div>
+
+        <div class="app-section" style="margin:0">
+          <h3 class="profile-h3" style="margin:0 0 2mm">Quirks</h3>
+          <div class="toggle-row"><div><strong>Architectural ornament</strong><span>Floor plans, isometric sketches.</span></div><div class="tg on"></div></div>
+          <div class="toggle-row"><div><strong>Reduce motion</strong><span>Disable slide-ins and pulses.</span></div><div class="tg"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="pg-foot"><span>DASHBOARD · STATS &amp; APPEARANCE</span><span>07 / 07</span></footer>
+  </div>
+</section>
+
+
+<script>
+// Build heatmap cells deterministically
+function buildHeatmap(targetId, weeks){
+  const target = document.getElementById(targetId);
+  if(!target) return;
+  const seed = (n) => {
+    const x = Math.sin(n*9.23 + 17.1) * 10000;
+    return x - Math.floor(x);
+  };
+  for(let w = 0; w < weeks; w++){
+    const col = document.createElement('div');
+    col.className = 'hm-week';
+    for(let d = 0; d < 7; d++){
+      const r = seed(w*7 + d);
+      let level = 0;
+      if(r > 0.55) level = 1;
+      if(r > 0.72) level = 2;
+      if(r > 0.85) level = 3;
+      if(r > 0.94) level = 4;
+      // bias towards Tue/Thu
+      if((d===2 || d===4) && r > 0.5) level = Math.min(4, level+1);
+      const cell = document.createElement('div');
+      cell.className = 'hm-cell hm-l' + level;
+      col.appendChild(cell);
+    }
+    target.appendChild(col);
+  }
+}
+buildHeatmap('main-heatmap', 53);
+buildHeatmap('profile-heatmap', 38);
+
+// Auto-print after fonts settle
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => {
+    setTimeout(() => window.print(), 600);
+  });
+} else {
+  window.addEventListener('load', () => setTimeout(() => window.print(), 800));
+}
+</script>
+
+</body>
+</html>

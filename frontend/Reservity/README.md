@@ -1,42 +1,22 @@
-# sv
+# CODING AGENTS: READ THIS FIRST
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+This is a **handoff bundle** from Claude Design (claude.ai/design).
 
-## Creating a project
+A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## What you should do — IMPORTANT
 
-```sh
-# create a new project
-npx sv create my-app
-```
+**Read `reservity/project/Reservity.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
 
-To recreate this project with the same configuration:
+**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
 
-```sh
-# recreate this project
-npx sv@0.12.5 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:typography,forms" vitest="usages:unit,component" --install npm Reservity
-```
+## About the design files
 
-## Developing
+The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
 
-```sh
-npm run dev
+## Bundle contents
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- `reservity/README.md` — this file
+- `reservity/project/` — the `Reservity` project files (HTML prototypes, assets, components)

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking confirmed</title>
+</head>
+<body style="font-family: system-ui, -apple-system, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #1c1c1c;">
+    <h1 style="color: #4b52a7; margin-bottom: 16px;">Your booking is confirmed</h1>
+    <p>Hi <span th:text="${displayName}">there</span>,</p>
+    <p>Your reservation for <strong th:text="${spaceName}">Lab 4B</strong> has been confirmed.</p>
+    <table style="width:100%; border-collapse: collapse; margin: 16px 0; background:#f7f7fb; border-radius:8px;">
+        <tr>
+            <td style="padding: 12px 16px; border-bottom: 1px solid #e6e6ee;"><strong>Code</strong></td>
+            <td style="padding: 12px 16px; border-bottom: 1px solid #e6e6ee; font-family: monospace;" th:text="${reservationCode}">RV-LAB4B-839271</td>
+        </tr>
+        <tr>
+            <td style="padding: 12px 16px;"><strong>When</strong></td>
+            <td style="padding: 12px 16px;" th:text="${startsAtLocal}">2026-05-08 14:00 (UTC)</td>
+        </tr>
+    </table>
+    <p style="margin-top: 24px;">
+        <a th:href="${spaceUrl}" style="background:#4b52a7;color:#fff;padding:10px 20px;text-decoration:none;border-radius:6px;display:inline-block;">
+            View your booking
+        </a>
+    </p>
+    <p style="color:#888;font-size:12px;margin-top:32px;border-top:1px solid #eee;padding-top:16px;">
+        You're receiving this because email-on-decision is enabled in your Reservity preferences.
+        Manage notifications in your account settings.
+    </p>
+</body>
+</html>
